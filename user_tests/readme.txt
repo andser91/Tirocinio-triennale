@@ -1,20 +1,25 @@
 					++++++++++++++++++++++++ USERS TEST ++++++++++++++++++++++++
 
-- Set the general test options in the config.py file
-	+ QUESTIONS_FILE = path of the .json file that contains the test descriptor
-	 (see testExample.json to understand how build it)
+ISTRUZIONI PER L'USO
 
-	+ QUESTION_DIRECTORY = path of the directory that contains all the questions
+-Impostazioni generali delle proprietà del test, configurare il file config.py:
 
-	+ JS_DIRECTORY = path of the directory that contains the .js files
+	+ QUESTIONS_FILE = percorso del file .json (+ nome del file) che contiene la descrizione del test
+	 (vedere il file testDescriptorExample.json per capire come costruirlo)
 
-	+ TEST_LENGTH = length of the test in number of questions
+	+ QUESTION_DIRECTORY = percorso della cartella contenente le domande del test
 
-	+ RANGES_OF_RANDOMIZATION = list of randomization ranges like [[start,end],...[start,end]]. the values in this list must be less TEST_LENGTH 
-								(if empty the questions will come in the order they are in QUESTIONS_FILE)
+	+ JS_DIRECTORY = percorso della cartella contenente i file javascript
+
+	+ TEST_LENGTH = lunghezza del test espressa con un intero che rappresenta il numero di domande
+
+	+ RANGES_OF_RANDOMIZATION = lista di intervalli di randomizzazione ad esempio: [[start,end],...[start,end]]. tutti i valori devono essere minori di TEST_LENGTH 
+								(se si vuole che le domande seguano l'ordine stabilito in testDescriptor lasciare la lista vuota '[]')
 
 
-- Each question is located in its own folder where there are two files: properties.json and the file from which the browser
-    loads the image that can be a .svg file or a .json file containing the coordinates of nodes and edges.
-    ATTENTION this two files must be called svg.svg or coord.json!
-    (see svgExample file and coordExample file to understand how build them)
+- Ogni domanda ha una propria cartella, sottocartella di QUESTION_DIRECTORY, nella quale devono essere presenti due file: properties.json e il file dal quale il browser
+    caricherà l'immagine svg che può essere un file .svg già pronto oppue un file .json che contiene le coordinate dei nodi e l'elenco degli archi.
+    ATTENZIONE ognuno di questi file per ogni domanda deve avere lo stesso nome ovvero 'properties.json', 'svg.svg', 'coord.json'
+    (per capire come sono strutturati tali file vedere i file di esempio)
+
+Tutti i file di esempio si trovano nella cartella 'Example'

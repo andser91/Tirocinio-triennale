@@ -2,8 +2,9 @@
 <svg xmlns="http://www.w3.org/2000/svg"
      xmlns:xlink="http://www.w3.org/1999/xlink"
      xmlns:ev="http://www.w3.org/2001/xml-events"
-     viewBox="-50 -10 450 250 "
-     id="svg">
+     width="700" height="700"  --> per avere dimensioni adeguate dovrebbero essere tra 600 e 750
+     viewBox="-50 -10 450 250 "  --> Coerente con le coordinate sotto elencate
+     id="svg">  --> Importante!
    <path id="v0-v1"
          d="M160 120 L160 190 Q160 200 170 200 L180 200"
          stroke-width="1"

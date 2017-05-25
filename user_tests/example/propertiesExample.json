@@ -1,0 +1,32 @@
+Per InteractiveQuestion
+compilare tutti i campi anche nel caso si abbia un svg già pronto!
+{
+  "fileType": "SVG_file" o "coord_file,
+  "editable": ["nodes","edges"] o ["nodes"] o ["edges"] o [],
+   
+  se si sceglie 'coord_file' ci sono dei campi aggiuntivi da inserire
+  ["graphType": "undirected" o "directed",
+   "drawingStyle" : "L-drawing", o "matrix" o "overloaded-orthogonal",
+   "nodeDimension": "n" numero qualsiasi, ]
+
+  "defaultNodeColor": "#66FF66",    //colore standard dei nodi
+  "defaultLabelColor": "black",     //colore standard del testo presente nei nodi
+  "selectedNodeColor": "red",      //colore dei nodi quando vengono cliccati/selezionati
+  "defaultEdgeColor": "black",     //colore standard degli archi 
+  "selectedEdgeColor": "red"       //colore degli archi quando vengono cliccati/selezionati
+}
+------------------------------------------------------------------------------------------------
+
+Per radioQuestion e textQuestion
+{
+  "fileType": "SVG_file" o "coord_file,   
+
+   //i seguenti campi sono necessari se si sceglie 'coord_file' ed hanno lo stesso significato di sopra, mentre verranno ignorati e sono quindi omissibili se si sceglie 'SVG_file'
+
+  "graphType": "undirected" or "directed",
+  "radiusNode":"number",
+  "drawingStyle": "L-drawing" or "matrix,
+  "defaultNodeColor": "#66FF66",
+  "defaultLabelColor": "black",
+  "defaultEdgeColor": "black",
+ }

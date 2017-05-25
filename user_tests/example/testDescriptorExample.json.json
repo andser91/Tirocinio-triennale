@@ -1,4 +1,4 @@
-The questions id must be start from 0 and continue in order
+gli id delle domande devono cominciare da 0 e continuare in maniere crescente
 
 {
   "test": [
@@ -17,7 +17,7 @@ The questions id must be start from 0 and continue in order
     {
       "id": 2,
       "question": "How many red nodes do you see?",
-      "options": ["4","5","6"],
+      "options": ["4","5","6"],    //campo aggiuntivo per radioQuestion template che indica le diverse alternative di risposta che possono essere 2 o più
       "correctAnswer": "4",
       "template": "radioQuestion.html"
     },
@@ -35,5 +35,5 @@ The questions id must be start from 0 and continue in order
       "template": "textQuestion.html"
   ],
 
-  "groups": ["group1",..."groupN"]
+  "groups": ["group1",..."groupN"]   //se si vuole dividere il test differenziando diversi gruppi di persone inserire i nomi dei gruppi nella lista, altrimenti mettere la lista vuota '[]'
 }

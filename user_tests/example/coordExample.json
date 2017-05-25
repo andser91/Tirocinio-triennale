@@ -1,8 +1,8 @@
 
-- If the graph is undirected, to connect two nodes, just add one edge
-- Respect the condition that the "from" and "to" fields of the edges contain exactly the id of the connecting nodes
-   and the id of the edges is exactly "fromNodeId-toNodeId"
-- If in properties.json you chose "drawingStyle" = "matrix", x and y coordinates will be ignored
+- Se il grafo è indiretto inserire solo un dei due possibili archi tra 2 nodi
+- Nei campi 'from' e 'to' degli archi deve esserci esattamente l'id del nodo di partenza e quello del nodo di arrivo
+   e l'id dell'arco deve essere esattamente 'fromNodeId-toNodeId'
+- Se nel file properties.json si inserisce come graphDrawing 'matrix', le coordinate dei nodi saranno ignorate (e possono anche essere omesse)
 
 {
   "nodes": [
@@ -10,7 +10,7 @@
       "id": "node1",
       "x": "20",
       "y": "200"
-      "optionalColor": "green" -->if this field is present this node will have a different colour from the others and in an interactive question it won't be editable
+      "optionalColor": "green" -->Se è presente questo campo, questo nodo avrà un colore diverso dagli altri e non sarà editabile/selezionabile
     },
     {
       "id": "node2",
@@ -33,7 +33,7 @@
       "id":"node1-node2",
       "from":"node1",
       "to":"node2",
-      "optionalColor: "red"  -->the same of nodes
+      "optionalColor: "red"  -->come per i nodi
     },
     {
       "id":"node2-node3",

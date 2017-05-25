@@ -1,0 +1,66 @@
+{
+  "nodes": [
+    {
+      "id": "node1",
+      "x": "20",
+      "y": "200"
+    },
+    {
+      "id": "node3",
+      "x": "160",
+      "y": "100"
+    },
+     {
+      "id": "node2",
+      "x": "80",
+      "y": "180"
+    },
+    {
+      "id": "node4",
+      "x": "180",
+      "y": "20"
+    }
+  ],
+  "edges": [
+    {
+      "id": "node1-node2",
+      "from": "node1",
+      "to": "node2"
+    },
+    {
+      "id": "node2-node3",
+      "from": "node2",
+      "to": "node3"
+    },
+    {
+      "id": "node3-node4",
+      "from": "node3",
+      "to": "node4"
+    },
+    {
+      "id": "node3-node1",
+      "from": "node3",
+      "to": "node1"
+    },
+    {
+      "id": "node1-node4",
+      "from": "node1",
+      "to": "node4"
+    },
+    {
+      "id": "node2-node4",
+      "from": "node2",
+      "to": "node4"
+    },
+     {
+      "id": "node3-node2",
+      "from": "node3",
+      "to": "node2"
+    },
+     {
+      "id": "node2-node1",
+      "from": "node2",
+      "to": "node1"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+    {% block header %}
+    <script>
+        //percentuale precedente
+        var percentualePre = Math.round(({{ step }} - 1)/{{ total_number_of_questions }} *100);
+        //percentuale attuale
+        var percentuale = Math.round({{ step }}/{{ total_number_of_questions }} * 100);
+
+        //crea la progress bar con la percentuale precedente
+        $(document).ready(function(){
+            var x = document.createElement('div');
+            x.setAttribute('class','progress');
+            var parentNode = document.getElementById('paragraph').parentNode;
+            var paragraph = document.getElementById('paragraph');
+            parentNode.insertBefore(x,paragraph);
+
+            var y = document.createElement('div');
+            y.setAttribute('class','progress-bar progress-bar-success progress-bar-striped active');
+            y.setAttribute('role','progressbar');
+            y.setAttribute('id','progress-bar');
+            y.setAttribute('aria-valuemin','0');
+            y.setAttribute('aria-valuemax','100');
+            y.setAttribute('style','width: '+percentualePre+'%');
+            y.setAttribute('aria-valuenow',percentualePre );
+            y.innerHTML = percentualePre+'%';
+            x.appendChild(y);
+        });
+
+        //aggiorna la progress bar con la percentuale attuale
+        window.onload = function(){
+            var x = document.getElementById("progress-bar");
+            x.setAttribute('style','width: '+percentuale+'%');
+            x.setAttribute('aria-valuemin','width: '+percentuale+'%' );
+            x.innerHTML = percentuale+'%';
+        }
+    </script>
+
+    {% endblock %}
+
+    {% block body %}
+    <!-- <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" id="progress-bar"
+             aria-valuemin="0" aria-valuemax="100"><script>document.write(percentuale+'%')</script></div>
+    </div>  -->
+    <div>
+    <p id='paragraph' style="font-size: 20px">A this time the system is not recording your time, you can stop what you need.<br>
+       To continue the test click on the button below.
+    </p>
+    </div>
+
+    <br>
+    <form onload="setProgressBar()">
+        <input type="hidden" name="user" id="user" value={{ user }}>
+        <input type="hidden" name="group" id="group" value={{ group }}>
+        <input type="hidden" name='step' id="step" value={{ step }}>
+        <input type="hidden" name="questions_string" id="questions_string" value={{ questions_string }}>
+        <input type="hidden" name="total_number_of_questions" id="total_number_of_questions" value={{ total_number_of_questions }}>
+        <input type='submit'  formmethod="post" formaction="{{ url_for('page_pause') }}" class='btn btn-success' value="Continue">
+    </form>
+    {%  endblock %}

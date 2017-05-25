@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+    {% block header %}
+    <script>
+
+        var percentuale = Math.round({{ step }}/{{ total_number_of_questions }} *100);
+        window.onload = function() {
+            var x = document.getElementById("progress-bar");
+            x.setAttribute('style', 'width: ' + percentuale + '%');
+            x.setAttribute('aria-valuemin', 'width: ' + percentuale);
+        }
+    </script>
+    {% endblock %}
+
+    {% block body %}
+        <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" id="progress-bar"
+             aria-valuemin="0" aria-valuemax="100"><script>document.write(percentuale+'%')</script></div>
+        </div>
+
+        <h2>The test is finished</h2>
+        <h4>The system registered your answers.</h4>
+        <h4>Thanks for collaboration</h4>
+    {%  endblock %}

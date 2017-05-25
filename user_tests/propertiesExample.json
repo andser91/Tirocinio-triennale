@@ -1,0 +1,31 @@
+Example of properties file for interactive questions
+Fill in all the fields!
+{
+  "fileType": "SVG_file" or "coord_file,
+  "editable": ["nodes","edges"] or ["nodes"] or ["edges"] or [],
+   
+  if you choose "coord_file" you should fill the follow additional fields
+  ["graphType": "undirected" or "directed",
+   "drawingStyle" : "L-drawing", or "matrix",
+   "nodeDimension": "number", ]
+
+  "defaultNodeColor": "#66FF66",
+  "defaultLabelColor": "black",
+  "selectedNodeColor": "red",
+  "defaultEdgeColor": "black",
+  "selectedEdgeColor": "red"
+}
+
+For radio questions and text question 
+{
+  "fileType": "SVG_file" or "coord_file,   
+
+  The following fields will be ignored if you choose "SVG_file" while are required if you choose "coord_file"
+
+  "graphType": "undirected" or "directed",
+  "radiusNode":"number",
+  "drawingStyle": "L-drawing" or "matrix,
+  "defaultNodeColor": "#66FF66",
+  "defaultLabelColor": "black",
+  "defaultEdgeColor": "black",
+ }

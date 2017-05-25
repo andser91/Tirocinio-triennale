@@ -1,0 +1,39 @@
+The questions id must be start from 0 and continue in order
+
+{
+  "test": [
+    {
+      "id": 0,
+      "question": "Select the node l1 ",
+      "correctAnswer": "nodel1",
+      "template": "interactiveQuestion.html",
+    },
+    {
+      "id": 1,
+      "question": "Select the node l1 ",
+      "correctAnswer": "nodel1",
+      "template": "interactiveQuestion.html",
+    },
+    {
+      "id": 2,
+      "question": "How many red nodes do you see?",
+      "options": ["4","5","6"],
+      "correctAnswer": "4",
+      "template": "radioQuestion.html"
+    },
+    {
+      "id": 3,
+      "question": "How many red nodes do you see?",
+      "options": ["4","5","6"],
+      "correctAnswer": "4",
+      "template": "radioQuestion.html"
+    },
+    {
+      "id": 4,
+      "question": "How many green nodes do you see?",
+      "correctAnswer": "7",
+      "template": "textQuestion.html"
+  ],
+
+  "groups": ["group1",..."groupN"]
+}

@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block header %}
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script>
+
+        //memorizza il tempo iniziale
+        function getBeginTime() {
+            var d = new Date();
+            var t = d.getTime();
+            return t;
+        }
+        var beginTime = getBeginTime();
+
+        //calcola il tempo impiegato per rispondere e lo assegna al campo hidden 'time'
+        //aggiorna il contatore step
+        function sendTime() {
+            var d = new Date();
+            var month = d.getMonth();
+            if (month < 10)
+                month = '0' + month;
+            var day = d.getDate();
+            if (day < 10)
+                day = '0' + day;
+            var date = day + '/' + month + '/' + d.getFullYear();
+            var seconds = d.getSeconds();
+            if (seconds < 10)
+                seconds = '0' + seconds;
+            var minutes = d.getMinutes();
+            if (minutes < 10)
+                minutes = '0' + minutes;
+            var hours = d.getHours();
+            if (hours < 10)
+                hours = '0' + hours;
+            var hour = hours + ':' + minutes + ':' + seconds;
+            var t = d.getTime() - beginTime;
+            document.getElementById('dataEora').value = date + ' ' + hour;
+            document.getElementById('step').value = {{ step }} +1;
+            document.getElementById('time').value = t;
+        }
+    </script>
+
+{% endblock %}
+
+{% block body %}
+    <div id="question" style="float: left; width: 55%;">
+
+    </div>
+
+
+
+    <div style="float: right; width: 20%;">
+        <form name="answerForm" onload="getBeginTime()" style="text-align: left">
+            <h2 id="titolo">Question
+                <script>document.write({{ step }} +1)</script>
+            </h2>
+            <h4 style="text-align: left">{{ text_question }}</h4>
+            <fieldset>
+                <legend style="margin-bottom: 10px"></legend>
+                <input type='hidden' name='time' id='time'>
+                <input type="hidden" name='step' id="step">
+                <input type="hidden" name="user" id="user" value={{ user }}>
+                <input type="hidden" name="group" id="group" value={{ group }}>
+                <input type="hidden" name="questions_string" id="questions_string" value={{ questions_string }}>
+                <input type="hidden" name="dataEora" id="dataEora">
+                <input type="hidden" name="total_number_of_questions" id="total_number_of_questions"
+                       value={{ total_number_of_questions }}>
+                <input type="hidden" name="id_question" id="id_question" value={{ id_question }}>
+                <input type="hidden" name="correct_answer" id="correct-answer" value={{ correct_answer }}>
+                <input type='text' class="form-control" style="width:40%" name="answer" id='answer'
+                       placeholder="answer.."
+                       required><br>
+                <input type='submit' id='submitButton' value='Submit' onclick='sendTime()' formmethod='post'
+                       formaction="{{ url_for('answers') }}" style='margin-top:10px' class="btn btn-success">
+            </fieldset>
+        </form>
+    </div>
+    <script type="application/javascript" src="{{ make_svg }}"></script>
+    <script>
+        var properties = {{ properties|tojson }};
+        var image_file = {{ image_file|tojson }};
+        $(window).load(function () {
+            makeSVG(image_file);
+        });
+    </script>
+{% endblock %}
+

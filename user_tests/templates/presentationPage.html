@@ -1,0 +1,125 @@
+{% extends 'layout.html' %}
+{% block header %}
+    <script src="https://d3js.org/d3.v3.min.js" xmlns="http://www.w3.org/1999/html"></script>
+    <script>
+        //inizializza un numero casuale da affiancare all'user
+        function setId() {
+            var d = new Date();
+            var month = d.getMonth();
+            if (month < 10)
+                month = '0' + month;
+            var day = d.getDate();
+            if (day < 10)
+                day = '0' + day;
+            var date = day + '/' + month + '/' + d.getFullYear();
+            var seconds = d.getSeconds();
+            if (seconds < 10)
+                seconds = '0' + seconds;
+            var minutes = d.getMinutes();
+            if (minutes < 10)
+                minutes = '0' + minutes;
+            var hours = d.getHours();
+            if (hours < 10)
+                hours = '0' + hours;
+            var hour = hours + ':' + minutes + ':' + seconds;
+            document.getElementById('dataEora').value = date + ' ' + hour;
+            var randomNumber = Math.round(100000 * Math.random());
+            document.getElementById('userId').value = randomNumber
+
+        }
+
+        $(document).ready(function () {
+            var group = [];
+            var select = document.getElementById('group');
+            var select_father = document.getElementById('fieldset');
+            var i = 0;
+            {% block content %}
+                {% for item in group %}
+                    group[i] = '{{ item }}';
+                    i = i + 1;
+                {% endfor %}
+            {% endblock content %}
+            if (group.length !== 0) {
+
+                i = 0;
+                //crea le opzioni  <option name="group" id="..." value="...">...</option>
+                while (i < group.length) {
+                    var option = document.createElement('option');
+                    option.setAttribute('name', 'group');
+                    option.setAttribute('id', group[i]);
+                    option.setAttribute('value', group[i]);
+                    option.innerHTML = group[i];
+                    select.appendChild(option);
+                    i = i + 1;
+                }
+            }
+            else { //crea un elemento nascosto con valore null  <input type="hidden" name="group" id="group" value='null'>
+                select.removeChild(document.getElementById('suggerimento'));
+                select_father.removeChild(document.getElementById('group'));
+                var hiddenElement = document.createElement('input');
+                hiddenElement.setAttribute('type', 'hidden');
+                hiddenElement.setAttribute('name', 'group');
+                hiddenElement.setAttribute('id', 'group');
+                hiddenElement.setAttribute('value', 'null');
+                select_father.appendChild(hiddenElement);
+            }
+        });
+
+
+        //controlla il campo age
+        function validateAge(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[0-9]/;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+        //controlla i campi firstName e lastName
+        function validateText(evt) {
+            var theEvent = evt || window.event;
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+            var regex = /[a-z]|[A-Z]|à|ì|è|ò|ù/;
+            if (!regex.test(key)) {
+                theEvent.returnValue = false;
+                if (theEvent.preventDefault) theEvent.preventDefault();
+            }
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block body %}
+
+    <form style="text-align: left" class="form-horizontal">
+        <fieldset id="fieldset">
+            <legend style="margin-bottom: 10px">Insert your personal details</legend>
+            <br>
+            <input type="hidden" name="userId" id="userId">
+            <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%" id="firstName"
+                   name="firstName"
+                   placeholder="first name.." maxlength="20"><br>
+            <input type="hidden" name="dataEora" id="dataEora">
+            <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%" name="lastName"
+                   id='lastName' placeholder="last name.." maxlength="20"><br>
+            <input type="text" class="form-control" onkeypress="validateAge(event)" style="width: 10%" name='age'
+                   id="age"
+                   placeholder="age.." maxlength="2"><br>
+            <select title="gender" name="gender" style="width: 20%" class="form-control" required>
+                <option hidden disabled selected value> -- gender --</option>
+                <option name="gender" id="male" value="Male">Male</option>
+                <option name="gender" id="male" value="Female">Female</option>
+            </select><br>
+            <select title="group" name="group" style="width: 20%" id="group" class="form-control" required>
+                <option id="suggerimento" hidden disabled selected value> -- group --</option>
+            </select><br>
+            <input align='left' type='submit' id='submitButton' value='Start' formmethod="post" onclick="setId()"
+                   formaction="{{ url_for('presentation') }}" style='margin-top:10px' class="btn btn-success"/>
+        </fieldset>
+    </form>
+{% endblock %}
+

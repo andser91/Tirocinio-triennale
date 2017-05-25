@@ -1,0 +1,59 @@
+
+- If the graph is undirected, to connect two nodes, just add one edge
+- Respect the condition that the "from" and "to" fields of the edges contain exactly the id of the connecting nodes
+   and the id of the edges is exactly "fromNodeId-toNodeId"
+- If in properties.json you chose "drawingStyle" = "matrix", x and y coordinates will be ignored
+
+{
+  "nodes": [
+    {
+      "id": "node1",
+      "x": "20",
+      "y": "200"
+      "optionalColor": "green" -->if this field is present this node will have a different colour from the others and in an interactive question it won't be editable
+    },
+    {
+      "id": "node2",
+      "x": "80",
+      "y": "180"
+    },
+    {
+      "id": "node3",
+      "x": "160",
+      "y": "100"
+    },
+    {
+      "id": "node4",
+      "x": "180",
+      "y": "20"
+    }
+  ],
+  "edges":[
+    {
+      "id":"node1-node2",
+      "from":"node1",
+      "to":"node2",
+      "optionalColor: "red"  -->the same of nodes
+    },
+    {
+      "id":"node2-node3",
+      "from":"node2",
+      "to":"node3"
+    },
+    {
+      "id":"node3-node4",
+      "from":"node3",
+      "to":"node4"
+    },
+    {
+      "id":"node3-node1",
+      "from":"node3",
+      "to":"node1"
+    },
+    {
+      "id":"node1-node4",
+      "from":"node1",
+      "to":"node4"
+    }
+  ]
+}

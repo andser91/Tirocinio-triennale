@@ -29,6 +29,7 @@
         }
 
         $(document).ready(function () {
+            document.getElementById('container').setAttribute('class', 'container');
             var group = [];
             var select = document.getElementById('group');
             var select_father = document.getElementById('fieldset');
@@ -94,32 +95,35 @@
 {% endblock %}
 
 {% block body %}
-
-    <form style="text-align: left" class="form-horizontal">
-        <fieldset id="fieldset">
-            <legend style="margin-bottom: 10px">Insert your personal details</legend>
-            <br>
-            <input type="hidden" name="userId" id="userId">
-            <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%" id="firstName"
-                   name="firstName"
-                   placeholder="first name.." maxlength="20"><br>
-            <input type="hidden" name="dataEora" id="dataEora">
-            <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%" name="lastName"
-                   id='lastName' placeholder="last name.." maxlength="20"><br>
-            <input type="text" class="form-control" onkeypress="validateAge(event)" style="width: 10%" name='age'
-                   id="age"
-                   placeholder="age.." maxlength="2"><br>
-            <select title="gender" name="gender" style="width: 20%" class="form-control" required>
-                <option hidden disabled selected value> -- gender --</option>
-                <option name="gender" id="male" value="Male">Male</option>
-                <option name="gender" id="male" value="Female">Female</option>
-            </select><br>
-            <select title="group" name="group" style="width: 20%" id="group" class="form-control" required>
-                <option id="suggerimento" hidden disabled selected value> -- group --</option>
-            </select><br>
-            <input align='left' type='submit' id='submitButton' value='Start' formmethod="post" onclick="setId()"
-                   formaction="{{ url_for('presentation') }}" style='margin-top:10px' class="btn btn-success"/>
-        </fieldset>
-    </form>
+    <div class="container">
+        <form style="text-align: left" class="form-horizontal">
+            <fieldset id="fieldset">
+                <legend style="margin-bottom: 10px">Insert your personal details</legend>
+                <br>
+                <input type="hidden" name="userId" id="userId">
+                <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%"
+                       id="firstName"
+                       name="firstName"
+                       placeholder="first name.." maxlength="20"><br>
+                <input type="hidden" name="dataEora" id="dataEora">
+                <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%"
+                       name="lastName"
+                       id='lastName' placeholder="last name.." maxlength="20"><br>
+                <input type="text" class="form-control" onkeypress="validateAge(event)" style="width: 10%" name='age'
+                       id="age"
+                       placeholder="age.." maxlength="2"><br>
+                <select title="gender" name="gender" style="width: 20%" class="form-control" required>
+                    <option hidden disabled selected value> -- gender --</option>
+                    <option name="gender" id="male" value="Male">Male</option>
+                    <option name="gender" id="male" value="Female">Female</option>
+                </select><br>
+                <select title="group" name="group" style="width: 20%" id="group" class="form-control" required>
+                    <option id="suggerimento" hidden disabled selected value> -- group --</option>
+                </select><br>
+                <input align='left' type='submit' id='submitButton' value='Start' formmethod="post" onclick="setId()"
+                       formaction="{{ url_for('presentation') }}" style='margin-top:10px' class="btn btn-success"/>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
 

@@ -66,18 +66,18 @@
 {% endblock %}
 
 {% block body %}
-    <div id="question" style="float: left; width: 55%;">
+    <div id="question" class="col-sm-7" ">
 
     </div>
 
 
 
-    <div style="float: right; width: 20%;">
-        <h2 id="titolo">Question
-            <script>document.write({{ step }} +1)</script>
-        </h2>
-        <h4 style="text-align: left">{{ text_question }}</h4>
+    <div class="col-sm-5">
         <form name="answerForm" onload="getBeginTime()" style="text-align: left">
+            <h2 id="titolo">Question
+                <script>document.write({{ step }} +1)</script>
+            </h2>
+            <h4 style="text-align: left">{{ text_question }}</h4>
             <fieldset id="fieldset">
                 <legend style="margin-bottom: 10px">Answer:</legend>
                 <input type='hidden' name='time' id='time'>

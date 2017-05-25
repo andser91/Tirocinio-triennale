@@ -7,7 +7,7 @@ function makeSVG() {
         svgElement.setAttribute('id', 'svgElement');
         svgElement.setAttribute('type', 'image/svg+xml');
         svgElement.setAttribute('data', image_file);
-        svgElement.addEventListener('load', addZoom, false);
+        svgElement.addEventListener('load', addZoomEPan, false);
         if (properties.editable)
             svgElement.addEventListener('load', svgScript, false);
     }
@@ -18,9 +18,12 @@ function makeSVG() {
         svgElement.setAttribute('xmlns:xlink', "http://www.w3.org/1999/xlink");
         svgElement.setAttribute('xmlns', "http://www.w3.org/2000/svg");
         svgElement.setAttribute('xmlns:ev', "http://www.w3.org/2001/xml-events");
-        svgElement.setAttribute('draggable', 'true');
         svgElement.setAttribute('zoom', '100');
-        svgElement.setAttribute('transform', 'scale(1)');
+        svgElement.onselectstart = nonSelectable;
+        function nonSelectable() {
+            return false;
+        }
+
         var width = window.screen.width * 50 / 100;
         var height = window.screen.height * 80 / 100;
         svgElement.setAttribute("width", width);
@@ -47,19 +50,49 @@ function makeSVG() {
         svgElement.setAttribute('viewBox', calcolaViewBox(svgElement, image_file));
         var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
         svgElement.addEventListener(mousewheelevt, svgZoom, false);
-
+        svgElement.addEventListener('mousedown', startPan, false);
+        svgElement.addEventListener('mouseup', endPan, false);
     }
     question.appendChild(svgElement);
 }
 
+var beginX;
+var beginY;
 
-function addZoom() {
+function startPan(e) {
+    if (!e)
+        e = window.event;
+    beginX = e.clientX;
+    beginY = e.clientY;
+}
+
+function endPan(e) {
+    if (!e)
+        e = window.event;
+    var viewBox = this.getAttribute('viewBox');
+    var vBox = viewBox.split(" ");
+    var dx = beginX - e.clientX;
+    var dy = beginY - e.clientY;
+    var dxViewBox = dx * vBox[2] / this.getAttribute('width');
+    var dyViewBox = dy * vBox[3] / this.getAttribute('height');
+    vBox[0] = parseFloat(vBox[0]) + dxViewBox;
+    vBox[1] = parseFloat(vBox[1]) + dyViewBox;
+    this.setAttribute('opacity', '1');
+    this.setAttribute('viewBox', vBox.join(" "));
+}
+
+function addZoomEPan() {
     var svgDocument = this.contentDocument;
     var svgTag = svgDocument.getElementById('svg');
     svgTag.setAttribute('zoom', '100');
-    svgTag.setAttribute('transform', 'scale(1)');
+    svgTag.onselectstart = nonSelectable;
+    function nonSelectable() {
+        return false;
+    }
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
     svgTag.addEventListener(mousewheelevt, svgZoom, false);
+    svgTag.addEventListener('mousedown', startPan, false);
+    svgTag.addEventListener('mouseup', endPan, false);
 }
 
 function svgZoom(e) {
@@ -68,49 +101,57 @@ function svgZoom(e) {
         e = window.event;
     if (e.wheelDelta) { /* IE/Opera. */
         delta = e.wheelDelta / 120;
-        handle(this, parseInt(delta));
-    } else if (e.type === "DOMMouseScroll") { /** Mozilla case. */
+
+    } else if (e.type === "DOMMouseScroll") {
+        /** Mozilla case. */
         delta = -e.detail / 3;
-        if (delta)
-            handleFirefox(this, parseInt(delta));
     }
+    if (delta)
+        handle(this, parseInt(delta), e.offsetX, e.offsetY);
+
 
 }
 
-function handleFirefox(svg, delta) {
-    var newScale;
-    var scale = parseFloat(svg.getAttribute('zoom')) / 100;
+function handle(svg, delta, mouseX, mouseY) {
+    var viewBox, vBox, widthIniziale, heightIniziale;
+    var actualZoom = parseInt(svg.getAttribute('zoom'));
+    console.log(mouseX, mouseY);
     if (delta > 0) {
-
-        if (scale > 0.4) {
-            newScale = 'scale(' + (scale - 0.1).toString() + ')';
-            console.log(newScale);
-            svg.setAttribute('transform', newScale);
-            svg.setAttribute('zoom', (parseInt(svg.getAttribute('zoom')) - 10).toString());
+        if (actualZoom < 200) {
+            viewBox = svg.getAttribute('viewBox');
+            console.log(viewBox);
+            vBox = viewBox.split(" ");
+            widthIniziale = vBox[2];
+            heightIniziale = vBox[3];
+            vBox[2] = parseFloat(vBox[2]) / 1.1;
+            vBox[3] = parseFloat(vBox[3]) / 1.1;
+            /*var mouseXViewBox = mouseX/parseInt(svg.getAttribute('width'))*vBox[2];
+             var mouseYViewBox = mouseY/parseInt(svg.getAttribute('height'))*vBox[3];
+             var centroAttualeX = (parseFloat(vBox[2]) - parseFloat(vBox[0]))/2;
+             var centroAttualeY = (parseFloat(vBox[3]) - parseFloat(vBox[1]))/2;
+             vBox[0] = parseFloat(vBox[0]) + mouseXViewBox - centroAttualeX;
+             vBox[1] = parseFloat(vBox[0]) + mouseYViewBox - centroAttualeX;
+             console.log(viewBox);*/
+            vBox[0] = parseFloat(vBox[0]) + (parseFloat(widthIniziale) - vBox[2]) / 2;
+            vBox[1] = parseFloat(vBox[1]) + (parseFloat(heightIniziale) - vBox[3]) / 2;
+            viewBox = vBox.join(" ");
+            svg.setAttribute('zoom', (actualZoom + 10).toString());
+            svg.setAttribute('viewBox', viewBox);
         }
     }
-    else if (delta < 0) {
-        if (scale < 2.10) {
-            newScale = 'scale(' + (scale + 0.1).toString() + ')';
-            console.log(newScale);
-            svg.setAttribute('transform', newScale);
-            svg.setAttribute('zoom', (parseInt(svg.getAttribute('zoom')) + 10).toString());
-        }
-    }
-}
-
-function handle(svg, delta) {
-    var scale = parseFloat(svg.getAttribute('zoom')) / 100;
-    if (delta > 0) {
-        if (scale > 0.4) {
-            svg.currentScale /= 1.1;
-            svg.setAttribute('zoom', (parseInt(svg.getAttribute('zoom')) - 10).toString());
-        }
-    }
-    else if (delta < 0) {
-        if (scale < 2.1) {
-            svg.currentScale *= 1.1;
-            svg.setAttribute('zoom', (parseInt(svg.getAttribute('zoom')) + 10).toString());
+    else {
+        if (actualZoom > 40) {
+            viewBox = svg.getAttribute('viewBox');
+            vBox = viewBox.split(" ");
+            widthIniziale = vBox[2];
+            heightIniziale = vBox[3];
+            vBox[2] *= 1.1;
+            vBox[3] *= 1.1;
+            vBox[0] = parseFloat(vBox[0]) + (parseFloat(widthIniziale) - vBox[2]) / 2;
+            vBox[1] = parseFloat(vBox[1]) + (parseFloat(heightIniziale) - vBox[3]) / 2;
+            viewBox = vBox.join(" ");
+            svg.setAttribute('zoom', (actualZoom - 10).toString());
+            svg.setAttribute('viewBox', viewBox);
         }
     }
 }

@@ -4,9 +4,7 @@
         //percentuale precedente
         var percentualePre = Math.round(({{ step }} -1) /{{ total_number_of_questions }} * 100);
         //percentuale attuale
-        var percentuale = Math.round({{ step }} /{{ total_number_of_questions }} * 100
-        )
-        ;
+        var percentuale = Math.round(({{ step }}) /{{ total_number_of_questions }} * 100);
 
         //crea la progress bar con la percentuale precedente
         $(document).ready(function () {

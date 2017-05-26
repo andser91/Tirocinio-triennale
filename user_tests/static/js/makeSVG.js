@@ -28,7 +28,7 @@ function makeSVG() {
         var height = window.screen.height * 80 / 100;
         svgElement.setAttribute("width", width);
         svgElement.setAttribute("height", height);
-        svgElement.setAttribute("style", "outline: 5px solid #630;");
+        //svgElement.setAttribute("style", "outline: 5px solid #630;");
         svgElement.setAttribute('id', "svg");
         var nodes = coord_file.nodes;
         var edges = coord_file.edges;

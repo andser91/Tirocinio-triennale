@@ -2,7 +2,7 @@
     {% block header %}
     <script>
 
-        var percentuale = Math.round({{ step }}/{{ total_number_of_questions }} *100);
+        var percentuale = Math.round(({{ step }})/{{ total_number_of_questions }} *100);
         window.onload = function() {
             var x = document.getElementById("progress-bar");
             x.setAttribute('style', 'width: ' + percentuale + '%');

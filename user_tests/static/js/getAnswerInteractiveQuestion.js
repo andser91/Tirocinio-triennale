@@ -28,7 +28,6 @@ function externalGetAnswer(properties) {
     }
     else if (properties.drawingStyle === "matrix") {
         nodes = eliminaDoppioni(svg.getElementsByTagName('text'));
-        console.log(nodes);
         for (i = 0; i < nodes.length; i++) {
             if (confrontaColori(nodes[i].getAttribute('fill'), properties.selectedNodeColor)) {
                 answer = answer + "node" + nodes[i].getAttribute('id').substring(8) + ',';

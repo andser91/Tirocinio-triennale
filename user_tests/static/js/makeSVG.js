@@ -51,28 +51,28 @@ function makeSVG() {
         var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
         svgElement.addEventListener(mousewheelevt, svgZoom, false);
         svgElement.addEventListener('mousedown', startPan, false);
-        svgElement.addEventListener('mousemove', panning, false);
-        svgElement.addEventListener('mouseup', endPan, false);
+
     }
     question.appendChild(svgElement);
-    window.addEventListener('mouseup',releaseSVG, false);
 }
 
 var beginX;
 var beginY;
 
 function releaseSVG(e) {
-    if(!e)
+    if (!e)
         e = window.event;
-     var svg;
+    var svg;
     if (properties.fileType === "SVG_file") {
         var svgElement = document.getElementById('svgElement');
-        svg = svgElement.contentDocument;
+        svg = svgElement.contentDocument.getElementById('svg');
     }
     else {
         svg = document.getElementById('svg');
     }
-    svg.setAttribute('opacity','1');
+    console.log(svg);
+    svg.setAttribute('opacity', '1');
+    window.removeEventListener('mouseup',releaseSVG);
 }
 
 function startPan(e) {
@@ -80,7 +80,10 @@ function startPan(e) {
         e = window.event;
     beginX = e.clientX;
     beginY = e.clientY;
-    this.setAttribute('opacity','0.2');
+    this.setAttribute('opacity', '0.2');
+    this.addEventListener('mousemove', panning, false);
+    this.addEventListener('mouseup', endPan, false);
+    window.addEventListener('mouseup', releaseSVG, false);
 }
 
 function panning(e) {
@@ -114,6 +117,9 @@ function endPan(e) {
     vBox[1] = parseFloat(vBox[1]) + dyViewBox;
     this.setAttribute('opacity', '1');
     this.setAttribute('viewBox', vBox.join(" "));
+    this.removeEventListener('mousemove',panning);
+    this.removeEventListener('mouseup',endPan);
+    window.removeEventListener('mouseup',releaseSVG);
 }
 
 function addZoomEPan() {
@@ -128,8 +134,6 @@ function addZoomEPan() {
     var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel";
     svgTag.addEventListener(mousewheelevt, svgZoom, false);
     svgTag.addEventListener('mousedown', startPan, false);
-    svgTag.addEventListener('mousemove', panning, false);
-    svgTag.addEventListener('mouseup', endPan, false);
 }
 
 function svgZoom(e) {
@@ -150,11 +154,9 @@ function svgZoom(e) {
 function handle(svg, delta, mouseX, mouseY) {
     var viewBox, vBox, widthIniziale, heightIniziale;
     var actualZoom = parseInt(svg.getAttribute('zoom'));
-    console.log(mouseX, mouseY);
     if (delta > 0) {
         if (actualZoom < 200) {
             viewBox = svg.getAttribute('viewBox');
-            console.log(viewBox);
             vBox = viewBox.split(" ");
             widthIniziale = vBox[2];
             heightIniziale = vBox[3];

@@ -1,0 +1,9 @@
+{
+  "fileType": "coord_file",
+  "graphType": "directed",
+  "drawingStyle": "L-drawing",
+  "nodeDimension": "5",
+  "defaultNodeColor": "#66FF66",
+  "defaultLabelColor": "black",
+  "defaultEdgeColor": "black"
+}

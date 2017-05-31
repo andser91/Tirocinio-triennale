@@ -1,0 +1,12 @@
+{
+  "fileType": "coord_file",
+  "editable": ["nodes","edges"],
+  "graphType": "directed",
+  "drawingStyle": "overloaded-orthogonal",
+  "nodeDimension": "5",
+  "defaultNodeColor": "#66FF66",
+  "defaultLabelColor": "black",
+  "selectedNodeColor": "red",
+  "defaultEdgeColor": "black",
+  "selectedEdgeColor": "red"
+}

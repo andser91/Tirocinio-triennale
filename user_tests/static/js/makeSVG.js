@@ -70,9 +70,9 @@ function releaseSVG(e) {
     else {
         svg = document.getElementById('svg');
     }
-    console.log(svg);
     svg.setAttribute('opacity', '1');
-    window.removeEventListener('mouseup',releaseSVG);
+    window.removeEventListener('mouseup', releaseSVG);
+    svg.removeEventListener('mousemove',panning,false);
 }
 
 function startPan(e) {
@@ -80,7 +80,7 @@ function startPan(e) {
         e = window.event;
     beginX = e.clientX;
     beginY = e.clientY;
-    this.setAttribute('opacity', '0.2');
+
     this.addEventListener('mousemove', panning, false);
     this.addEventListener('mouseup', endPan, false);
     window.addEventListener('mouseup', releaseSVG, false);
@@ -89,19 +89,19 @@ function startPan(e) {
 function panning(e) {
     if (!e)
         e = window.event;
-    if (this.getAttribute('opacity') === '0.2') {
-        var viewBox = this.getAttribute('viewBox');
-        var vBox = viewBox.split(" ");
-        var dx = beginX - e.clientX;
-        var dy = beginY - e.clientY;
-        var dxViewBox = dx * parseFloat(vBox[2]) / parseFloat(this.getAttribute('width'));
-        var dyViewBox = dy * parseFloat(vBox[3]) / parseFloat(this.getAttribute('height'));
-        vBox[0] = parseFloat(vBox[0]) + dxViewBox;
-        vBox[1] = parseFloat(vBox[1]) + dyViewBox;
-        this.setAttribute('viewBox', vBox.join(" "));
-        beginX = e.clientX;
-        beginY = e.clientY;
-    }
+    this.setAttribute('opacity', '0.2');
+    var viewBox = this.getAttribute('viewBox');
+    var vBox = viewBox.split(" ");
+    var dx = beginX - e.clientX;
+    var dy = beginY - e.clientY;
+    var dxViewBox = dx * parseFloat(vBox[2]) / parseFloat(this.getAttribute('width'));
+    var dyViewBox = dy * parseFloat(vBox[3]) / parseFloat(this.getAttribute('height'));
+    vBox[0] = parseFloat(vBox[0]) + dxViewBox;
+    vBox[1] = parseFloat(vBox[1]) + dyViewBox;
+    this.setAttribute('viewBox', vBox.join(" "));
+    beginX = e.clientX;
+    beginY = e.clientY;
+
 }
 
 function endPan(e) {
@@ -117,9 +117,9 @@ function endPan(e) {
     vBox[1] = parseFloat(vBox[1]) + dyViewBox;
     this.setAttribute('opacity', '1');
     this.setAttribute('viewBox', vBox.join(" "));
-    this.removeEventListener('mousemove',panning);
-    this.removeEventListener('mouseup',endPan);
-    window.removeEventListener('mouseup',releaseSVG);
+    this.removeEventListener('mousemove', panning);
+    this.removeEventListener('mouseup', endPan);
+    window.removeEventListener('mouseup', releaseSVG);
 }
 
 function addZoomEPan() {

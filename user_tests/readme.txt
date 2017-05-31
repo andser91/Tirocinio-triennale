@@ -1,4 +1,5 @@
 					++++++++++++++++++++++++ USERS TEST ++++++++++++++++++++++++
+Applicazione Web per la somministrazione di test utente in ambito di visualizzazione delle informazione
 
 ISTRUZIONI PER L'USO
 

@@ -1,0 +1,10 @@
+{
+  "fileType": "SVG_file",
+  "editable": ["nodes","edges"],
+  "graphType": "undirected",
+  "defaultNodeColor": "#66FF66",
+  "defaultLabelColor": "black",
+  "selectedNodeColor": "red",
+  "defaultEdgeColor": "black",
+  "selectedEdgeColor": "red"
+}

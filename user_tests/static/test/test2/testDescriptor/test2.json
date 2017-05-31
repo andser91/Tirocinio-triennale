@@ -1,0 +1,61 @@
+{
+  "test": [
+    {
+      "id": 0,
+      "question": "Select the node l1 ",
+      "correctAnswer": "nodel1",
+      "template": "interactiveQuestion.html"
+    },
+    {
+      "id": 1,
+      "question": "Select the node l1 ",
+      "correctAnswer": "nodel1",
+      "template": "interactiveQuestion.html"
+    },
+    {"id": 2,
+      "question": "Select the node l1 ",
+      "correctAnswer": "nodel1",
+      "template": "interactiveQuestion.html"
+    },
+    {
+      "id": 3,
+      "question": "How many red nodes do you see?",
+      "options": ["4","5","6"],
+      "correctAnswer": "4",
+      "template": "radioQuestion.html"
+    },
+    {
+      "id": 4,
+      "question": "How many red nodes do you see?",
+      "options": ["4","5","6"],
+      "correctAnswer": "4",
+      "template": "radioQuestion.html"
+    },
+    {
+      "id": 5,
+      "question": "How many red nodes do you see?",
+      "options": ["4","5","6"],
+      "correctAnswer": "4",
+      "template": "radioQuestion.html"
+    },
+    {
+      "id": 6,
+      "question": "How many green nodes do you see?",
+      "correctAnswer": "7",
+      "template": "textQuestion.html"
+    },
+     {
+      "id": 7,
+      "question": "How many green nodes do you see?",
+      "correctAnswer": "7",
+      "template": "textQuestion.html"
+    },
+     {
+      "id": 8,
+      "question": "How many green nodes do you see?",
+      "correctAnswer": "7",
+      "template": "textQuestion.html"
+    }
+  ],
+  "groups": []
+}

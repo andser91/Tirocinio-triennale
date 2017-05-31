@@ -1,0 +1,9 @@
+{
+  "fileType": "coord_file",
+  "graphType": "directed",
+  "drawingStyle": "matrix",
+  "nodeDimension": "5",
+  "defaultNodeColor": "#F4F4F4",
+  "defaultLabelColor": "black",
+  "defaultEdgeColor": "blue"
+}

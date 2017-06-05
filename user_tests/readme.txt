@@ -17,7 +17,7 @@ ISTRUZIONI PER L'USO
 	+ RANGES_OF_RANDOMIZATION = lista di intervalli di randomizzazione ad esempio: [[start,end],...[start,end]]. tutti i valori devono essere minori di TEST_LENGTH 
 								(se si vuole che le domande seguano l'ordine stabilito in testDescriptor lasciare la lista vuota '[]')
 
-
+- è possibile costruire più test nella cartella test
 - Ogni domanda ha una propria cartella, sottocartella di QUESTION_DIRECTORY, nella quale devono essere presenti due file: properties.json e il file dal quale il browser
     caricherà l'immagine svg che può essere un file .svg già pronto oppue un file .json che contiene le coordinate dei nodi e l'elenco degli archi.
     ATTENZIONE ognuno di questi file per ogni domanda deve avere lo stesso nome ovvero 'properties.json', 'svg.svg', 'coord.json'

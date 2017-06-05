@@ -1,8 +1,8 @@
 
-TEST_DESCRIPTOR = 'static/test/test1/testDescriptor/test1.json'
-QUESTION_DIRECTORY = "static/test/test1/questions/"
+TEST_DESCRIPTOR = 'static/test/test2/testDescriptor/test2.json'
+QUESTION_DIRECTORY = "static/test/test2/questions/"
 JS_DIRECTORY = 'static/js/'
-TEST_LENGTH = 9
+TEST_LENGTH = 6
 RANGES_OF_RANDOMIZATION = []
 
 

@@ -25,7 +25,7 @@ function makeSVG() {
         }
 
         var width = window.screen.width * 50 / 100;
-        var height = window.screen.height * 80 / 100;
+        var height = window.screen.height * 85 / 100;
         svgElement.setAttribute("width", width);
         svgElement.setAttribute("height", height);
         svgElement.setAttribute("style", "outline: 1px solid #000;");
@@ -70,9 +70,8 @@ function releaseSVG(e) {
     else {
         svg = document.getElementById('svg');
     }
-    svg.setAttribute('opacity', '1');
     window.removeEventListener('mouseup', releaseSVG);
-    svg.removeEventListener('mousemove',panning,false);
+    svg.removeEventListener('mousemove', panning, false);
 }
 
 function startPan(e) {
@@ -88,7 +87,6 @@ function startPan(e) {
 function panning(e) {
     if (!e)
         e = window.event;
-    this.setAttribute('opacity', '0.2');
     var viewBox = this.getAttribute('viewBox');
     var vBox = viewBox.split(" ");
     var dx = beginX - e.clientX;
@@ -114,7 +112,6 @@ function endPan(e) {
     var dyViewBox = dy * vBox[3] / this.getAttribute('height');
     vBox[0] = parseFloat(vBox[0]) + dxViewBox;
     vBox[1] = parseFloat(vBox[1]) + dyViewBox;
-    this.setAttribute('opacity', '1');
     this.setAttribute('viewBox', vBox.join(" "));
     this.removeEventListener('mousemove', panning);
     this.removeEventListener('mouseup', endPan);
@@ -200,14 +197,14 @@ function calcolaViewBox(svgElement, image_file) {
     var nodes = image_file.nodes;
     if (properties.drawingStyle === "L-drawing" || properties.drawingStyle === "overloaded-orthogonal") {
         for (var i = 0; i < nodes.length; i++) {
-            if (parseInt(nodes[i].x)*properties.coordinatesMultiplier < xMin)
-                xMin = parseInt(nodes[i].x)*properties.coordinatesMultiplier - 2 * parseInt(properties.nodeDimension);
-            if (parseInt(nodes[i].x)*properties.coordinatesMultiplier > xMax)
-                xMax = parseInt(nodes[i].x)*properties.coordinatesMultiplier + 2 * parseInt(properties.nodeDimension);
-            if (parseInt(nodes[i].y)*properties.coordinatesMultiplier < yMin)
-                yMin = parseInt(nodes[i].y)*properties.coordinatesMultiplier - 2 * parseInt(properties.nodeDimension);
-            if (parseInt(nodes[i].y)*properties.coordinatesMultiplier > yMax)
-                yMax = parseInt(nodes[i].y)*properties.coordinatesMultiplier + 2 * parseInt(properties.nodeDimension);
+            if (parseInt(nodes[i].x) * properties.coordinatesMultiplier < xMin)
+                xMin = parseInt(nodes[i].x) * properties.coordinatesMultiplier - 2 * parseInt(properties.nodeDimension);
+            if (parseInt(nodes[i].x) * properties.coordinatesMultiplier > xMax)
+                xMax = parseInt(nodes[i].x) * properties.coordinatesMultiplier + 2 * parseInt(properties.nodeDimension);
+            if (parseInt(nodes[i].y) * properties.coordinatesMultiplier < yMin)
+                yMin = parseInt(nodes[i].y) * properties.coordinatesMultiplier - 2 * parseInt(properties.nodeDimension);
+            if (parseInt(nodes[i].y) * properties.coordinatesMultiplier > yMax)
+                yMax = parseInt(nodes[i].y) * properties.coordinatesMultiplier + 2 * parseInt(properties.nodeDimension);
         }
     }
     else if (properties.drawingStyle === "matrix") {
@@ -340,8 +337,8 @@ function makeLDrawingNode(nodes, svgNS, svgElement) {
     for (var i = 0; i < nodes.length; i++) {
         var node = document.createElementNS(svgNS, 'circle');
         node.setAttribute('id', nodes[i].id);
-        node.setAttribute('cx', (parseInt(nodes[i].x)*properties.coordinatesMultiplier).toString());
-        node.setAttribute('cy', (parseInt(nodes[i].y)*properties.coordinatesMultiplier).toString());
+        node.setAttribute('cx', (parseInt(nodes[i].x) * properties.coordinatesMultiplier).toString());
+        node.setAttribute('cy', (parseInt(nodes[i].y) * properties.coordinatesMultiplier).toString());
         node.setAttribute('r', properties.nodeDimension);
         if (nodes[i].optionalColor)
             node.setAttribute('fill', nodes[i].optionalColor);
@@ -352,8 +349,8 @@ function makeLDrawingNode(nodes, svgNS, svgElement) {
         svgElement.appendChild(node);
         var label = document.createElementNS(svgNS, 'text');
         label.setAttribute('id', 'label' + nodes[i].id.substring(4));
-        label.setAttribute('x', (parseInt(nodes[i].x)*properties.coordinatesMultiplier - 4).toString());
-        label.setAttribute('y', (parseInt(nodes[i].y)*properties.coordinatesMultiplier + 2).toString());
+        label.setAttribute('x', (parseInt(nodes[i].x) * properties.coordinatesMultiplier - 4).toString());
+        label.setAttribute('y', (parseInt(nodes[i].y) * properties.coordinatesMultiplier + 2).toString());
         label.setAttribute('textLength', "8");
         label.setAttribute('font-size', "7");
         label.setAttribute('fill', properties.defaultLabelColor);
@@ -363,6 +360,7 @@ function makeLDrawingNode(nodes, svgNS, svgElement) {
     }
 }
 function makeLDrawingEdge(edges, nodes, svgNS, svgElement) {
+    ordinaArchiLunghezzaVerticaleCrescente(edges, nodes);
     for (var i = 0; i < edges.length; i++) {
         var fromNode = null;
         var toNode = null;
@@ -373,21 +371,7 @@ function makeLDrawingEdge(edges, nodes, svgNS, svgElement) {
                 toNode = nodes[j];
         }
         var edge;
-        /* if (fromNode === toNode) {
-         edge = document.createElementNS(svgNS, "ellipse");
-         edge.setAttribute('stroke-width', "1");
-         edge.setAttribute('stroke-linejoin', "round");
-         if (edges[i].optionalColor)
-         edge.setAttribute('stroke', edges[i].optionalColor);
-         else
-         edge.setAttribute('stroke', properties.defaultEdgeColor);
-         edge.setAttribute('fill', "none");
-         edge.setAttribute('rx', parseInt(properties.nodeDimension) * 3);
-         edge.setAttribute('ry', edge.getAttribute('rx'));
-         edge.setAttribute('cx', (parseInt(fromNode.x) + parseInt(edge.getAttribute('rx'))).toString());
-         edge.setAttribute('cy', fromNode.y);
-         }
-         else {  */
+
         edge = document.createElementNS(svgNS, "path");
         edge.setAttribute('stroke-width', "1");
         edge.setAttribute('stroke-linejoin', "round");
@@ -412,85 +396,85 @@ function makeLDrawingEdge(edges, nodes, svgNS, svgElement) {
         }
         var firstPoint, firstLine, firstCurvePoint, secondCurvePoint, secondLine, dPath, arrowPoints;
         if (parseInt(fromNode.x) < parseInt(toNode.x) && parseInt(fromNode.y) > parseInt(toNode.y)) {
-            firstPoint = "M " + parseInt(fromNode.x)*properties.coordinatesMultiplier + " " +
-                    parseInt(fromNode.y)*properties.coordinatesMultiplier;
-            firstLine = " V " + (parseInt(toNode.y)*properties.coordinatesMultiplier + 10).toString();
-            firstCurvePoint = " Q " + parseInt(fromNode.x)*properties.coordinatesMultiplier +
-                    " " + parseInt(toNode.y)*properties.coordinatesMultiplier + " ";
-            secondCurvePoint = (parseInt(fromNode.x)*properties.coordinatesMultiplier + 10).toString() +
-                    " " + parseInt(toNode.y)*properties.coordinatesMultiplier;
-            secondLine = " H " + parseInt(toNode.x)*properties.coordinatesMultiplier;
+            firstPoint = "M " + parseInt(fromNode.x) * properties.coordinatesMultiplier + " " +
+                parseInt(fromNode.y) * properties.coordinatesMultiplier;
+            firstLine = " V " + (parseInt(toNode.y) * properties.coordinatesMultiplier + 10).toString();
+            firstCurvePoint = " Q " + parseInt(fromNode.x) * properties.coordinatesMultiplier +
+                " " + parseInt(toNode.y) * properties.coordinatesMultiplier + " ";
+            secondCurvePoint = (parseInt(fromNode.x) * properties.coordinatesMultiplier + 10).toString() +
+                " " + parseInt(toNode.y) * properties.coordinatesMultiplier;
+            secondLine = " H " + parseInt(toNode.x) * properties.coordinatesMultiplier;
             dPath = firstPoint + firstLine + firstCurvePoint + secondCurvePoint + secondLine;
             if (properties.graphType === "directed") {
-                arrowPoints = (parseInt(toNode.x*properties.coordinatesMultiplier) - parseInt(properties.nodeDimension)).toString()
-                    + "," + parseInt(toNode.y)*properties.coordinatesMultiplier + " " +
-                    (parseInt(toNode.x)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
-                    + "," + (parseInt(toNode.y)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension) / 3).toString() + " " +
-                    (parseInt(toNode.x)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
-                    + "," + (parseInt(toNode.y)*properties.coordinatesMultiplier + parseInt(properties.nodeDimension) / 3).toString() + " ";
+                arrowPoints = (parseInt(toNode.x * properties.coordinatesMultiplier) - parseInt(properties.nodeDimension)).toString()
+                    + "," + parseInt(toNode.y) * properties.coordinatesMultiplier + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
+                    + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) / 3).toString() + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
+                    + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension) / 3).toString() + " ";
                 arrow.setAttribute('points', arrowPoints);
             }
             edge.setAttribute('d', dPath);
         }
         else if (parseInt(fromNode.x) > parseInt(toNode.x) && parseInt(fromNode.y) < parseInt(toNode.y)) {
-            firstPoint = "M " + parseInt(fromNode.x)*properties.coordinatesMultiplier + " "
-                    + parseInt(fromNode.y)*properties.coordinatesMultiplier;
-            firstLine = " V " + (parseInt(toNode.y)*properties.coordinatesMultiplier - 10).toString();
-            firstCurvePoint = " Q " + parseInt(fromNode.x)*properties.coordinatesMultiplier + " "
-                    + parseInt(toNode.y)*properties.coordinatesMultiplier + " ";
-            secondCurvePoint = (parseInt(fromNode.x)*properties.coordinatesMultiplier - 10).toString() + " "
-                    + parseInt(toNode.y)*properties.coordinatesMultiplier;
-            secondLine = " H " + parseInt(toNode.x)*properties.coordinatesMultiplier;
+            firstPoint = "M " + parseInt(fromNode.x) * properties.coordinatesMultiplier + " "
+                + parseInt(fromNode.y) * properties.coordinatesMultiplier;
+            firstLine = " V " + (parseInt(toNode.y) * properties.coordinatesMultiplier - 10).toString();
+            firstCurvePoint = " Q " + parseInt(fromNode.x) * properties.coordinatesMultiplier + " "
+                + parseInt(toNode.y) * properties.coordinatesMultiplier + " ";
+            secondCurvePoint = (parseInt(fromNode.x) * properties.coordinatesMultiplier - 10).toString() + " "
+                + parseInt(toNode.y) * properties.coordinatesMultiplier;
+            secondLine = " H " + parseInt(toNode.x) * properties.coordinatesMultiplier;
             dPath = firstPoint + firstLine + firstCurvePoint + secondCurvePoint + secondLine;
             if (properties.graphType === "directed") {
-                arrowPoints = (parseInt(toNode.x)*properties.coordinatesMultiplier + 5).toString()
-                        + "," + parseInt(toNode.y)*properties.coordinatesMultiplier + " " +
-                        (parseInt(toNode.x)*properties.coordinatesMultiplier + 9).toString() + "," +
-                        (parseInt(toNode.y)*properties.coordinatesMultiplier - 2).toString() + " " +
-                        (parseInt(toNode.x)*properties.coordinatesMultiplier + 9).toString() + "," +
-                        (parseInt(toNode.y)*properties.coordinatesMultiplier + 2).toString() + " ";
+                arrowPoints = (parseInt(toNode.x) * properties.coordinatesMultiplier + 5).toString()
+                    + "," + parseInt(toNode.y) * properties.coordinatesMultiplier + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier + 9).toString() + "," +
+                    (parseInt(toNode.y) * properties.coordinatesMultiplier - 2).toString() + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier + 9).toString() + "," +
+                    (parseInt(toNode.y) * properties.coordinatesMultiplier + 2).toString() + " ";
                 arrow.setAttribute('points', arrowPoints);
             }
             edge.setAttribute('d', dPath);
         }
         else if (parseInt(fromNode.x) > parseInt(toNode.x) && parseInt(fromNode.y) > parseInt(toNode.y)) {
-            firstPoint = "M " + parseInt(fromNode.x)*properties.coordinatesMultiplier
-                    + " " + parseInt(fromNode.y)*properties.coordinatesMultiplier;
-            firstLine = " V " + (parseInt(toNode.y)*properties.coordinatesMultiplier + 10).toString();
-            firstCurvePoint = " Q " + (fromNode.x)*properties.coordinatesMultiplier + " "
-                    + parseInt(toNode.y)*properties.coordinatesMultiplier + " ";
-            secondCurvePoint = (parseInt(fromNode.x)*properties.coordinatesMultiplier - 10).toString()
-                    + " " + parseInt(toNode.y)*properties.coordinatesMultiplier;
-            secondLine = " H " + parseInt(toNode.x)*properties.coordinatesMultiplier;
+            firstPoint = "M " + parseInt(fromNode.x) * properties.coordinatesMultiplier
+                + " " + parseInt(fromNode.y) * properties.coordinatesMultiplier;
+            firstLine = " V " + (parseInt(toNode.y) * properties.coordinatesMultiplier + 10).toString();
+            firstCurvePoint = " Q " + (fromNode.x) * properties.coordinatesMultiplier + " "
+                + parseInt(toNode.y) * properties.coordinatesMultiplier + " ";
+            secondCurvePoint = (parseInt(fromNode.x) * properties.coordinatesMultiplier - 10).toString()
+                + " " + parseInt(toNode.y) * properties.coordinatesMultiplier;
+            secondLine = " H " + parseInt(toNode.x) * properties.coordinatesMultiplier;
             dPath = firstPoint + firstLine + firstCurvePoint + secondCurvePoint + secondLine;
             if (properties.graphType === "directed") {
-                arrowPoints = (parseInt(toNode.x)*properties.coordinatesMultiplier + 5).toString() +
-                        "," + parseInt(toNode.y)*properties.coordinatesMultiplier + " " +
-                        (parseInt(toNode.x)*properties.coordinatesMultiplier + 9).toString() + ","
-                        + (parseInt(toNode.y)*properties.coordinatesMultiplier - 2).toString() + " " +
-                        (parseInt(toNode.x)*properties.coordinatesMultiplier + 9).toString() + "," +
-                        (parseInt(toNode.y)*properties.coordinatesMultiplier + 2).toString() + " ";
+                arrowPoints = (parseInt(toNode.x) * properties.coordinatesMultiplier + 5).toString() +
+                    "," + parseInt(toNode.y) * properties.coordinatesMultiplier + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier + 9).toString() + ","
+                    + (parseInt(toNode.y) * properties.coordinatesMultiplier - 2).toString() + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier + 9).toString() + "," +
+                    (parseInt(toNode.y) * properties.coordinatesMultiplier + 2).toString() + " ";
                 arrow.setAttribute('points', arrowPoints);
             }
             edge.setAttribute('d', dPath);
         }
         else if (parseInt(fromNode.x) < parseInt(toNode.x) && parseInt(fromNode.y) < parseInt(toNode.y)) {
-            firstPoint = "M " + parseInt(fromNode.x)*properties.coordinatesMultiplier + " "
-                        + parseInt(fromNode.y)*properties.coordinatesMultiplier;
-            firstLine = " V " + (parseInt(toNode.y)*properties.coordinatesMultiplier - 10).toString();
-            firstCurvePoint = " Q " + parseInt(fromNode.x)*properties.coordinatesMultiplier +
-                    " " + parseInt(toNode.y)*properties.coordinatesMultiplier + " ";
-            secondCurvePoint = (parseInt(fromNode.x)*properties.coordinatesMultiplier + 10).toString()
-                    + " " + parseInt(toNode.y)*properties.coordinatesMultiplier;
-            secondLine = " H " + parseInt(toNode.x)*properties.coordinatesMultiplier;
+            firstPoint = "M " + parseInt(fromNode.x) * properties.coordinatesMultiplier + " "
+                + parseInt(fromNode.y) * properties.coordinatesMultiplier;
+            firstLine = " V " + (parseInt(toNode.y) * properties.coordinatesMultiplier - 10).toString();
+            firstCurvePoint = " Q " + parseInt(fromNode.x) * properties.coordinatesMultiplier +
+                " " + parseInt(toNode.y) * properties.coordinatesMultiplier + " ";
+            secondCurvePoint = (parseInt(fromNode.x) * properties.coordinatesMultiplier + 10).toString()
+                + " " + parseInt(toNode.y) * properties.coordinatesMultiplier;
+            secondLine = " H " + parseInt(toNode.x) * properties.coordinatesMultiplier;
             dPath = firstPoint + firstLine + firstCurvePoint + secondCurvePoint + secondLine;
             if (properties.graphType === "directed") {
-                arrowPoints = (parseInt(toNode.x)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension)).toString()
-                    + "," + parseInt(toNode.y)*properties.coordinatesMultiplier + " " +
-                    (parseInt(toNode.x)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
-                    + "," + (parseInt(toNode.y)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension) / 3).toString() + " " +
-                    (parseInt(toNode.x)*properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
-                    + "," + (parseInt(toNode.y)*properties.coordinatesMultiplier + parseInt(properties.nodeDimension) / 3).toString() + " ";
+                arrowPoints = (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension)).toString()
+                    + "," + parseInt(toNode.y) * properties.coordinatesMultiplier + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
+                    + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) / 3).toString() + " " +
+                    (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
+                    + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension) / 3).toString() + " ";
                 arrow.setAttribute('points', arrowPoints);
             }
             edge.setAttribute('d', dPath);
@@ -515,7 +499,27 @@ function getToNode(edge, nodes) {
             return nodes[j];
     }
 }
+function ordinaArchiLunghezzaVerticaleCrescente(edges, nodes) {
+    var max, temp;
+    for (var i = 0; i < edges.length - 1; i++) {
+        max = i;
+        for (var j = i + 1; j < edges.length; j++)
+            if (calcolaLunghezzaVerticale(edges[j], nodes) > calcolaLunghezzaVerticale(edges[max], nodes)) //cambiare questa condizione per invertire l'ordine
+                max = j;
+        temp = edges[max];
+        edges[max] = edges[i];
+        edges[i] = temp;
+    }
+}
 
+function calcolaLunghezzaVerticale(edge, nodes) {
+    var fromNode = getFromNode(edge, nodes);
+    var toNode = getToNode(edge, nodes);
+    if (fromNode.y > toNode.y)
+        return fromNode.y - toNode.y;
+    else
+        return toNode.y - fromNode.y
+}
 function makeOOEdge(edges, nodes, svgNS, svgElement) {
     var upEdges = [];
     var downEdges = [];
@@ -523,13 +527,14 @@ function makeOOEdge(edges, nodes, svgNS, svgElement) {
     var toNode = null;
     var upEdgesAggiunti = [];
     var downEdgesAggiunti = [];
+    ordinaArchiLunghezzaVerticaleCrescente(edges, nodes);
     for (var i = 0; i < edges.length; i++) {
         fromNode = getFromNode(edges[i], nodes);
         toNode = getToNode(edges[i], nodes);
-        if (parseInt(fromNode.x) < parseInt(toNode.x) && parseInt(fromNode.y) > parseInt(toNode.y)) {
+        if (parseInt(fromNode.x) > parseInt(toNode.x) && parseInt(fromNode.y) > parseInt(toNode.y)) {
             upEdges.push(edges[i]);
         }
-        if (parseInt(fromNode.x) > parseInt(toNode.x) && parseInt(fromNode.y) < parseInt(toNode.y)) {
+        if (parseInt(fromNode.x) < parseInt(toNode.x) && parseInt(fromNode.y) < parseInt(toNode.y)) {
             downEdges.push(edges[i]);
         }
     }
@@ -560,14 +565,18 @@ function makeOOEdge(edges, nodes, svgNS, svgElement) {
             arrow.setAttribute('stroke-width', '1');
             arrow.setAttribute('id', 'arrow' + edge.getAttribute('id'));
         }
-        firstPoint = "M " + fromNode.x + " " + fromNode.y;
-        firstLine = " V " + toNode.y;
-        secondLine = " H " + toNode.x;
+        firstPoint = "M " + parseInt(fromNode.x) * properties.coordinatesMultiplier +
+            " " + parseInt(fromNode.y) * properties.coordinatesMultiplier;
+        firstLine = " V " + parseInt(toNode.y) * properties.coordinatesMultiplier;
+        secondLine = " H " + parseInt(toNode.x) * properties.coordinatesMultiplier;
         dPath = firstPoint + firstLine + secondLine;
         if (properties.graphType === "directed") {
-            arrowPoints = (parseInt(toNode.x) - parseInt(properties.nodeDimension)).toString() + "," + toNode.y + " " +
-                (parseInt(toNode.x) - parseInt(properties.nodeDimension) * 1.5).toString() + "," + (parseInt(toNode.y) - parseInt(properties.nodeDimension) / 3).toString() + " " +
-                (parseInt(toNode.x) - parseInt(properties.nodeDimension) * 1.5).toString() + "," + (parseInt(toNode.y) + parseInt(properties.nodeDimension) / 3).toString() + " ";
+            arrowPoints = (parseInt(toNode.x) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension)).toString()
+                + "," + parseInt(toNode.y) * properties.coordinatesMultiplier + " " +
+                (parseInt(toNode.x) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension) * 1.5).toString()
+                + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) / 3).toString() + " " +
+                (parseInt(toNode.x) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension) * 1.5).toString()
+                + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension) / 3).toString() + " ";
             arrow.setAttribute('points', arrowPoints);
         }
         edge.setAttribute('d', dPath);
@@ -602,14 +611,18 @@ function makeOOEdge(edges, nodes, svgNS, svgElement) {
             arrow.setAttribute('stroke-width', '1');
             arrow.setAttribute('id', 'arrow' + edge.getAttribute('id'));
         }
-        firstPoint = "M " + fromNode.x + " " + fromNode.y;
-        firstLine = " V " + toNode.y;
-        secondLine = " H " + toNode.x;
+        firstPoint = "M " + parseInt(fromNode.x) * properties.coordinatesMultiplier
+            + " " + parseInt(fromNode.y) * properties.coordinatesMultiplier;
+        firstLine = " V " + parseInt(toNode.y) * properties.coordinatesMultiplier;
+        secondLine = " H " + parseInt(toNode.x) * properties.coordinatesMultiplier;
         dPath = firstPoint + firstLine + secondLine;
         if (properties.graphType === "directed") {
-            arrowPoints = (parseInt(toNode.x) + parseInt(properties.nodeDimension)).toString() + "," + toNode.y + " " +
-                (parseInt(toNode.x) + parseInt(properties.nodeDimension) * 1.5).toString() + "," + (parseInt(toNode.y) - parseInt(properties.nodeDimension) / 3).toString() + " " +
-                (parseInt(toNode.x) + parseInt(properties.nodeDimension) * 1.5).toString() + "," + (parseInt(toNode.y) + parseInt(properties.nodeDimension) / 3).toString() + " ";
+            arrowPoints = (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension)).toString()
+                + "," + parseInt(toNode.y) * properties.coordinatesMultiplier + " " +
+                (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
+                + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) / 3).toString() + " " +
+                (parseInt(toNode.x) * properties.coordinatesMultiplier - parseInt(properties.nodeDimension) * 1.5).toString()
+                + "," + (parseInt(toNode.y) * properties.coordinatesMultiplier + parseInt(properties.nodeDimension) / 3).toString() + " ";
             arrow.setAttribute('points', arrowPoints);
         }
         edge.setAttribute('d', dPath);
@@ -634,12 +647,12 @@ function AggiungiPuntoUp(svg, svgNS, edges, edge, nodes) {
             blackPoint.setAttribute('rx', '1');
             blackPoint.setAttribute('ry', '1');
             if (parseInt(toNodeAggiunto.y) > parseInt(toNodeDaAggiungere.y)) {
-                blackPoint.setAttribute('cx', fromNodeAggiunto.x);
-                blackPoint.setAttribute('cy', toNodeAggiunto.y);
+                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
             }
             else {
-                blackPoint.setAttribute('cx', fromNodeAggiunto.x);
-                blackPoint.setAttribute('cy', toNodeDaAggiungere.y);
+                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeDaAggiungere.y) * properties.coordinatesMultiplier);
             }
             svg.appendChild(blackPoint);
         }
@@ -649,13 +662,13 @@ function AggiungiPuntoUp(svg, svgNS, edges, edge, nodes) {
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
             blackPoint.setAttribute('rx', '1');
             blackPoint.setAttribute('ry', '1');
-            if (parseInt(fromNodeAggiunto.x) > parseInt(fromNodeDaAggiungere.x)) {
-                blackPoint.setAttribute('cx', fromNodeAggiunto.x);
-                blackPoint.setAttribute('cy', toNodeAggiunto.y);
+            if (parseInt(fromNodeAggiunto.x) < parseInt(fromNodeDaAggiungere.x)) {
+                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
             }
             else {
-                blackPoint.setAttribute('cx', fromNodeDaAggiungere.x);
-                blackPoint.setAttribute('cy', toNodeAggiunto.y);
+                blackPoint.setAttribute('cx', parseInt(fromNodeDaAggiungere.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
             }
             svg.appendChild(blackPoint);
         }
@@ -675,12 +688,12 @@ function AggiungiPuntoDown(svg, svgNS, edges, edge, nodes) {
             blackPoint.setAttribute('rx', '1');
             blackPoint.setAttribute('ry', '1');
             if (parseInt(toNodeAggiunto.y) > parseInt(toNodeDaAggiungere.y)) {
-                blackPoint.setAttribute('cx', fromNodeAggiunto.x);
-                blackPoint.setAttribute('cy', toNodeDaAggiungere.y);
+                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeDaAggiungere.y) * properties.coordinatesMultiplier);
             }
             else {
-                blackPoint.setAttribute('cx', fromNodeAggiunto.x);
-                blackPoint.setAttribute('cy', toNodeAggiunto.y);
+                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
             }
             svg.appendChild(blackPoint);
         }
@@ -690,16 +703,18 @@ function AggiungiPuntoDown(svg, svgNS, edges, edge, nodes) {
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
             blackPoint.setAttribute('rx', '1');
             blackPoint.setAttribute('ry', '1');
-            if (parseInt(fromNodeAggiunto.x) > parseInt(fromNodeDaAggiungere.x)) {
-                blackPoint.setAttribute('cx', fromNodeDaAggiungere.x);
-                blackPoint.setAttribute('cy', toNodeAggiunto.y);
+            if (parseInt(fromNodeAggiunto.x) < parseInt(fromNodeDaAggiungere.x)) {
+                blackPoint.setAttribute('cx', parseInt(fromNodeDaAggiungere.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
             }
             else {
-                blackPoint.setAttribute('cx', fromNodeAggiunto.x);
-                blackPoint.setAttribute('cy', toNodeAggiunto.y);
+                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
             }
             svg.appendChild(blackPoint);
         }
     }
+
+
 }
 

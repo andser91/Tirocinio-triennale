@@ -183,5 +183,11 @@
       "template": "interactiveQuestion.html"
     }
   ],
-  "groups": []
+  "groups": [],
+  "instructions":
+  ["- Please use a desktop or laptop computer, not a tablet or phone, with Google Chrome Browser. Use the pointing device you are most comfortable with (for example, a mouse or touchpad).",
+    "- Please don't press back button of the browser during the test run.",
+    "- Between a question and another there will be an intermediate page where time will not be measured. If you are forced to stop for some problem taking advantage of these moments!",
+    "- In all questions, you can zoom the image with the mouse wheel and move it by clicking and dragging it."
+  ]
 }

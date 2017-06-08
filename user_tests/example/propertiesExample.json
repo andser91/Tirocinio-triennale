@@ -13,7 +13,8 @@ compilare tutti i campi anche nel caso si abbia un svg già pronto!
   "defaultLabelColor": "black",     //colore standard del testo presente nei nodi
   "selectedNodeColor": "red",      //colore dei nodi quando vengono cliccati/selezionati
   "defaultEdgeColor": "black",     //colore standard degli archi 
-  "selectedEdgeColor": "red"       //colore degli archi quando vengono cliccati/selezionati
+  "selectedEdgeColor": "red"       //colore degli archi quando vengono cliccati/selezionati 
+  "coordinatesMultiplier": number  //fattore di moltiplicazione delle coordinate che quindi avvicina o allontana quest'ultimi
 }
 ------------------------------------------------------------------------------------------------
 

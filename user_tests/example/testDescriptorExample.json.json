@@ -35,5 +35,7 @@ gli id delle domande devono cominciare da 0 e continuare in maniere crescente
       "template": "textQuestion.html"
   ],
 
-  "groups": ["group1",..."groupN"]   //se si vuole dividere il test differenziando diversi gruppi di persone inserire i nomi dei gruppi nella lista, altrimenti mettere la lista vuota '[]'
+  "groups": ["group1",..."groupN"] ,  //se si vuole dividere il test differenziando diversi gruppi di persone inserire i nomi dei gruppi nella lista, altrimenti mettere la lista vuota '[]'
+  "instructions": [""...""]  //lista di stringhe contenenti le istruzioni per il corretto svolgimento del test che verranno
+			     //visualizzate prima dell'inizio del test
 }

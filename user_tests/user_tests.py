@@ -7,11 +7,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('instructionPage.html')
+    with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
+        data = json.load(data_file)
+        return render_template('instructionsPage.html', istruzioni=data['instructions'])
 
 
 @app.route('/instructions', methods=['POST'])
 def instructions():
+    return render_template('sizePage.html')
+
+
+@app.route('/size', methods=['POST'])
+def size():
     with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
         data = json.load(data_file)
         return render_template('presentationPage.html', group=data['groups'])
@@ -42,7 +49,7 @@ def randomize(string, start, end):
         ids_list[i] = ids_list[j]
         ids_list[j] = temp
         print 'i=' + str(i) + '    j=' + str(j)
-        print ids_list[start:end]
+        print ids_list[start:end + 1]
         i = i + 1
     print 'END RANDOMIZATION'
     return '#p#'.join(ids_list)

@@ -48,6 +48,7 @@ function makeSVG() {
         }
         else if (properties.drawingStyle === "matrix") {
             svgElement = makeSvgMatrix(svgElement, svgNS, nodes, edges);
+            console.log(svgElement);
             if (properties.editable)
                 svgElement.addEventListener('mouseover', svgScript, false);
         }

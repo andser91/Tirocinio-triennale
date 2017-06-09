@@ -19,6 +19,36 @@
       "id": "node4",
       "x": "180",
       "y": "20"
+    },
+    {
+      "id": "node5",
+      "x": "20",
+      "y": "200"
+    },
+    {
+      "id": "node6",
+      "x": "80",
+      "y": "180"
+    },
+    {
+      "id": "node7",
+      "x": "160",
+      "y": "100"
+    },
+    {
+      "id": "node8",
+      "x": "180",
+      "y": "20"
+    },
+ {
+      "id": "node9",
+      "x": "20",
+      "y": "200"
+    },
+    {
+      "id": "node10",
+      "x": "80",
+      "y": "180"
     }
   ],
   "edges":[
@@ -46,6 +76,61 @@
       "id":"node1-node4",
       "from":"node1",
       "to":"node4"
+    },
+     {
+      "id":"node5-node8",
+      "from":"node5",
+      "to":"node8"
+    },
+    {
+      "id":"node6-node8",
+      "from":"node6",
+      "to":"node8"
+    },
+    {
+      "id":"node7-node2",
+      "from":"node7",
+      "to":"node2"
+    },
+    {
+      "id":"node10-node4",
+      "from":"node10",
+      "to":"node4"
+    },
+    {
+      "id":"node1-node7",
+      "from":"node1",
+      "to":"node7"
+    },
+      {
+      "id":"node1-node4",
+      "from":"node1",
+      "to":"node4"
+    },
+     {
+      "id":"node1-node2",
+      "from":"node1",
+      "to":"node2"
+    },
+    {
+      "id":"node7-node9",
+      "from":"node7",
+      "to":"node9"
+    },
+    {
+      "id":"node7-node5",
+      "from":"node7",
+      "to":"node5"
+    },
+    {
+      "id":"node5-node6",
+      "from":"node5",
+      "to":"node6"
+    },
+    {
+      "id":"node8-node1",
+      "from":"node8",
+      "to":"node1"
     }
   ]
 }

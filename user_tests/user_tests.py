@@ -19,6 +19,14 @@ def instructions():
 
 @app.route('/size', methods=['POST'])
 def size():
+    image_fileL = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgL.svg"
+    image_fileO = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgO.svg"
+    image_fileM = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgM.svg"
+    return render_template('userGuide.html',image_fileL=image_fileL, image_fileO=image_fileO, image_fileM=image_fileM)
+
+
+@app.route('/userGuide', methods=['POST'])
+def userGuide():
     with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
         data = json.load(data_file)
         return render_template('presentationPage.html', group=data['groups'])
@@ -69,41 +77,40 @@ def build_question(id_question):
                 make_svg = url_for('static', filename='js/makeSVG.js')
                 if data['test'][i]['template'] == 'radioQuestion.html':
                     options = data['test'][i]['options']
-                    with app.open_resource(config.QUESTION_DIRECTORY + "question" + str(
-                            i) + "/" + "properties.json") as json_file:
+                    with app.open_resource(config.QUESTION_DIRECTORY + data['test'][i]['question_folder']
+                                                   + "/" + "properties.json") as json_file:
                         properties = json.load(json_file)
                         if properties['fileType'] == "SVG_file":
-                            image_file = config.QUESTION_DIRECTORY + "question" + str(i) + "/" + "svg.svg"
+                            image_file = config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "svg.svg"
                             return [template, text_question, options, correct_answer, image_file, properties, make_svg]
                         else:
-                            image_file = config.QUESTION_DIRECTORY + "question" + str(i) + "/" + "coord.json"
+                            image_file = config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "coord.json"
                             with app.open_resource(image_file) as coord_json:
                                 coord = json.load(coord_json)
                                 return [template, text_question, options, correct_answer, coord, properties, make_svg]
                 elif data['test'][i]['template'] == 'textQuestion.html':
-                    with app.open_resource(config.QUESTION_DIRECTORY + "question" + str(
-                            i) + "/" + "properties.json") as json_file:
+                    with app.open_resource(config.QUESTION_DIRECTORY + data['test'][i]['question_folder']
+                                + "/" + "properties.json") as json_file:
                         properties = json.load(json_file)
                         if properties['fileType'] == "SVG_file":
-                            image_file = config.QUESTION_DIRECTORY + "question" + str(i) + "/" + "svg.svg"
+                            image_file = config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "svg.svg"
                             return [template, text_question, correct_answer, image_file, properties, make_svg]
                         else:
-                            image_file = config.QUESTION_DIRECTORY + "question" + str(i) + "/" + "coord.json"
+                            image_file = config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "coord.json"
                             with app.open_resource(image_file) as coord_json:
                                 coord = json.load(coord_json)
                                 return [template, text_question, correct_answer, coord, properties, make_svg]
                 elif data['test'][i]['template'] == 'interactiveQuestion.html':
                     interactive_script = url_for('static', filename='js/svgInteractiveScript.js')
                     get_answer = url_for('static', filename='js/getAnswerInteractiveQuestion.js')
-                    with app.open_resource(config.QUESTION_DIRECTORY + "question" + str(
-                            i) + "/" + "properties.json") as json_file:
+                    with app.open_resource(config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "properties.json") as json_file:
                         properties = json.load(json_file)
                         if properties['fileType'] == "SVG_file":
-                            image_file = config.QUESTION_DIRECTORY + "question" + str(i) + "/" + "svg.svg"
+                            image_file = config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "svg.svg"
                             return [template, text_question, correct_answer, image_file, properties, make_svg,
                                     interactive_script, get_answer]
                         else:
-                            image_file = config.QUESTION_DIRECTORY + "question" + str(i) + "/" + "coord.json"
+                            image_file = config.QUESTION_DIRECTORY + data['test'][i]['question_folder'] + "/" + "coord.json"
                             with app.open_resource(image_file) as coord_json:
                                 coord = json.load(coord_json)
                                 return [template, text_question, correct_answer, coord, properties, make_svg,

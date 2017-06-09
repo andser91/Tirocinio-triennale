@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <script type="application/javascript" src="{{ url_for('static', filename='js/makeSVG.js')}}"></script>
+    <script>
+        document.getElementById('starter-template').setAttribute('style','padding-top: 0');
+    </script>
+
+    <div>
+        <div style="text-align: center">
+            <h2 style="text-align: center; margin-bottom: 2%">
+                In the test you will encounter three graph design styles:<br>
+            </h2>
+            <div id="L-Drawing" class="col-sm-4" style="border-style: solid; padding: 0" >
+                <p style="font-size: 16pt">L-Drawing</p>
+                <object id="LObject" type="image/svg+xml" data="{{ image_fileL }}"></object>
+                <p style="font-size: 12pt; color: red">- The highlighted line is an edge that connect the node 2 to the node 1</p>
+                <p style="font-size: 12pt; color: orange">- The highlighted node(node 2) is the neighbour in common between the node 3 and the node 10</p>
+            </div>
+            <div id="matrix" class="col-sm-4" style="border-style: solid; padding: 0">
+                 <p style="font-size: 16pt">Overloaded-Orthogonal</p>
+                <object id="OObject" type="image/svg+xml" data="{{ image_fileO }}"></object>
+                <p style="font-size: 12pt; color: red">- The highlighted line is an edge that connect the node 1 to the node 7</p>
+                <p style="font-size: 12pt; color: orange">- The highlighted node(node 2) is the neighbour in common between the node 7 and the node 10</p>
+            </div>
+            <div id="OO" class="col-sm-4" style="border-style: solid; padding: 0">
+                 <p style="font-size: 16pt">Matrix</p>
+                <object id="MObject" type="image/svg+xml" data="{{ image_fileM }}"></object>
+                <p style="font-size: 12pt; color: blue">- The blue rects are edge</p>
+                <p style="font-size: 12pt; color: red">- The highlighted rect is an edge that connect the node 10 to the node 4</p>
+                <p style="font-size: 12pt; color: orange">- The highlighted node(node 2) is the neighbour in common between the node 1 and the node 7</p>
+            </div>
+
+        </div>
+    </div>
+    <div style="margin-left: 12%; margin-right: 12%;">
+        <form method="post" action="{{ url_for('userGuide') }}" id="form">
+            <input type="submit" id="Ok" class="btn btn-success" value="Ok, I got it!" style="margin-top: 2%">
+        </form>
+    </div>
+
+{% endblock %}

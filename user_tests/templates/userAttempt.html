@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% block header %}
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <script>
+        function verifyAnswer() {
+            var svg = document.getElementById('svg');
+            var answer = "";
+            var editable = properties.editable;
+            if (editable[0] === "nodes") {
+                var nodes = [];
+                if (properties.drawingStyle !== "matrix") {
+                    nodes = document.getElementsByTagName('circle');
+                    for (var i = 0; i < nodes.length; i++) {
+                        if (nodes[i].getAttribute('fill') === 'red') {
+                            answer += nodes[i].getAttribute('id');
+                        }
+                    }
+                }
+                else {
+                    var labelNode = svg.getElementsByTagName('text');
+                    for (i = 0; i < labelNode.length; i++) {
+                        if (labelNode[i].getAttribute('fill') === 'red') {
+                            answer += labelNode[i].getAttribute('id');
+                        }
+                    }
+                }
+                console.log(answer);
+                return answer === "node4" || answer === "rawlabel4collabel4";
+            }
+            else if (editable[0] === "edges") {
+                var edges = [];
+                if (properties.drawingStyle !== "matrix") {
+                    edges = document.getElementsByTagName('path');
+                    for (i = 0; i < edges.length; i++) {
+                        if (edges[i].getAttribute('stroke') === 'red') {
+                            answer += edges[i].getAttribute('id');
+                        }
+                    }
+                }
+                else{
+                    var nodesEedge = svg.getElementsByTagName('rect');
+                    for (i = 0; i < nodesEedge.length; i++) {
+                        if (confrontaColori(nodesEedge[i].getAttribute('fill'), properties.defaultEdgeColor)||
+                            confrontaColori(nodesEedge[i].getAttribute('fill'), properties.selectedEdgeColor))
+                            edges.push(nodesEedge[i]);
+                    }
+                    for (i = 0; i < edges.length; i++) {
+                        if (edges[i].getAttribute('fill') === 'red') {
+                            answer += edges[i].getAttribute('id');
+                        }
+                    }
+                }
+                return answer === "node2-node4node4-node6" || answer === "node4-node6node2-node4";
+            }
+        }
+
+        function goForward() {
+            var question = document.getElementById('question');
+            var editableProperties = properties.editable;
+            if (verifyAnswer()) {
+                question.removeChild(document.getElementById('svg'));
+                if (properties.drawingStyle === "L-drawing") {
+                    properties = {{ propertiesO|tojson }};
+                    if (editableProperties[0] === "edges") {
+                        properties.editable = ["edges"];
+                    }
+                    makeSVG();
+                }
+                else if (properties.drawingStyle === "overloaded-orthogonal") {
+                    properties = {{ propertiesM|tojson }};
+                    if (editableProperties[0] === "edges") {
+                        properties.editable = ["edges"];
+                    }
+                    makeSVG();
+                }
+                else if (properties.drawingStyle === "matrix") {
+                    if (editableProperties[0] === "edges") {
+                        var button = document.getElementById('button');
+                        button.onclick = null;
+                        button.setAttribute("type", "submit");
+                        button.setAttribute('formmethod', 'post');
+                        button.setAttribute('formaction', "{{ url_for('userAttempt') }}");
+                    }
+                    else {
+                        properties = {{ propertiesL|tojson }};
+                        properties.editable = ["edges"];
+                        image_file = {{ image_file|tojson }};
+                        document.getElementById('textQuestion').innerHTML = "Select the path between the two highlighted vertices"
+                        makeSVG();
+                    }
+                }
+            }
+            else {
+                alert("Wrong answer! retry!");
+            }
+        }
+    </script>
+    <div id="question" class="col-sm-7">
+    </div>
+    <div class="col-sm-5">
+        <form name="answerForm" style="text-align: left">
+            <h3 style="text-align: left">Let's see if you understand:</h3>
+            <h4 style="text-align: left" id="textQuestion"> {{ text_question }}</h4>
+            <input type="button" class="btn btn-success" value="next" onclick="goForward()" id="button">
+        </form>
+    </div>
+
+    <script type="application/javascript" src="{{ url_for('static', filename='js/svgInteractiveScript.js') }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/makeSVG.js') }}"></script>
+    <script>
+        var properties = {{ propertiesL|tojson }};
+        var image_file = {{ image_file|tojson }};
+        $(window).load(function () {
+            makeSVG();
+        });
+    </script>
+{% endblock %}
+

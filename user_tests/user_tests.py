@@ -27,6 +27,22 @@ def size():
 
 @app.route('/userGuide', methods=['POST'])
 def userGuide():
+    with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "propertiesL.json") as json_file:
+        propertiesL = json.load(json_file)
+    with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "propertiesO.json") as json_file:
+        propertiesO = json.load(json_file)
+    with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "propertiesM.json") as json_file:
+        propertiesM = json.load(json_file)
+    text_question = "Select the common successors (immediate neighbors) of the two highlighted vertices"
+
+    with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "coord.json") as coord_json:
+        coord = json.load(coord_json)
+        return render_template('userAttempt.html', propertiesL=propertiesL, propertiesM=propertiesM, propertiesO=propertiesO,
+                                image_file=coord, text_question=text_question)
+
+
+@app.route('/userAttempt', methods=['POST'])
+def userAttempt():
     with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
         data = json.load(data_file)
         return render_template('presentationPage.html', group=data['groups'])

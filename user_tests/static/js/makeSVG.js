@@ -48,7 +48,6 @@ function makeSVG() {
         }
         else if (properties.drawingStyle === "matrix") {
             svgElement = makeSvgMatrix(svgElement, svgNS, nodes, edges);
-            console.log(svgElement);
             if (properties.editable)
                 svgElement.addEventListener('mouseover', svgScript, false);
         }
@@ -163,13 +162,6 @@ function handle(svg, delta, mouseX, mouseY) {
             heightIniziale = vBox[3];
             vBox[2] = parseFloat(vBox[2]) / 1.1;
             vBox[3] = parseFloat(vBox[3]) / 1.1;
-            /*var mouseXViewBox = mouseX/parseInt(svg.getAttribute('width'))*vBox[2];
-             var mouseYViewBox = mouseY/parseInt(svg.getAttribute('height'))*vBox[3];
-             var centroAttualeX = (parseFloat(vBox[2]) - parseFloat(vBox[0]))/2;
-             var centroAttualeY = (parseFloat(vBox[3]) - parseFloat(vBox[1]))/2;
-             vBox[0] = parseFloat(vBox[0]) + mouseXViewBox - centroAttualeX;
-             vBox[1] = parseFloat(vBox[0]) + mouseYViewBox - centroAttualeX;
-             console.log(viewBox);*/
             vBox[0] = parseFloat(vBox[0]) + (parseFloat(widthIniziale) - vBox[2]) / 2;
             vBox[1] = parseFloat(vBox[1]) + (parseFloat(heightIniziale) - vBox[3]) / 2;
             viewBox = vBox.join(" ");
@@ -724,11 +716,12 @@ function AggiungiPuntoDown(svg, svgNS, edges, edge, nodes) {
 function yMassima(nodes) {
     var yMaggiore = 0;
     for (var i = 0; i < nodes.length; i++) {
-        if (nodes[i].y > yMaggiore) {
-            yMaggiore = nodes[i].y;
+        if (parseInt(nodes[i].y) > yMaggiore) {
+            yMaggiore = parseInt(nodes[i].y);
         }
     }
     return yMaggiore;
+
 }
 
 

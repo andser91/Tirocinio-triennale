@@ -5,7 +5,6 @@ $(document).ready(function () {
 
 function nextText() {
     i++;
-    console.log(i);
     var form = document.getElementById('form');
     if (i < instr.length - 1) {
         document.getElementById('instr').innerHTML = instr[i];
@@ -35,7 +34,6 @@ function nextText() {
 
 function previousText() {
     i--;
-    console.log(i);
     var form = document.getElementById('form');
     if (i > 0) {
         document.getElementById('instr').innerHTML = instr[i];

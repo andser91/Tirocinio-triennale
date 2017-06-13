@@ -1,3 +1,12 @@
 [09/05/2017 00:53:51]user=34543 step=0 age= gender=Female
 [09/05/2017 00:53:53] user=34543 step=1 id_question=4 correct_answer= answer= time=1221
 [11/05/2017 00:32:32]user=30061 step=0 age= gender=Male
+[12/05/2017 11:19:53]user=67730 step=0 age= gender=Male
+[12/05/2017 11:19:57] user=67730 step=1 id_question=6 correct_answer= answer= time=3047
+[12/05/2017 11:20:00] user=67730 step=2 id_question=7 correct_answer= answer= time=2046
+[12/05/2017 11:20:04] user=67730 step=3 id_question=4 correct_answer= answer= time=1804
+[12/05/2017 11:20:08] user=67730 step=4 id_question=5 correct_answer= answer= time=3494
+[12/05/2017 11:20:11] user=67730 step=5 id_question=0 correct_answer= answer= time=1195
+[12/05/2017 11:20:14] user=67730 step=6 id_question=1 correct_answer= answer= time=1623
+[12/05/2017 11:20:17] user=67730 step=7 id_question=3 correct_answer= answer= time=1337
+[12/05/2017 11:20:42] user=67730 step=8 id_question=8 correct_answer= answer=edge[node98-node76] time=23802

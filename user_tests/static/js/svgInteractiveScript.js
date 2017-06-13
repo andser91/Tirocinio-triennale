@@ -44,26 +44,136 @@ function editableEdgeMatrix(svg, edges) {
 }
 
 function editMatrixEdge() {
+    var svg = document.getElementById('svg');
+    var nodesEedge = svg.getElementsByTagName('rect');
+    var edges = [];
+    var y = this.getAttribute('y');
+    var x = this.getAttribute('x');
     if (confrontaColori(this.getAttribute('fill'), properties.defaultEdgeColor)) {
+        for (var i = 0; i < nodesEedge.length; i++) {
+            if (!confrontaColori(nodesEedge[i].getAttribute('fill'), properties.defaultEdgeColor)
+                && !confrontaColori(nodesEedge[i].getAttribute('fill'), properties.selectedEdgeColor))
+                edges.push(nodesEedge[i]);
+        }
+        for (i = 0; i < edges.length; i++) {
+            if (edges[i].getAttribute('y') === y && parseInt(edges[i].getAttribute('x')) < parseInt(x)
+                || edges[i].getAttribute('x') === x && parseInt(edges[i].getAttribute('y')) < parseInt(y))
+                edges[i].setAttribute('fill', '#ffe6e6');
+        }
         this.setAttribute('fill', properties.selectedEdgeColor);
         if (properties.graphType === "undirected") {
-            var svg = document.getElementById('svg');
             var nodeIdarray = this.getAttribute('id').split("-");
             var otherEdgeId = nodeIdarray[1] + "-" + nodeIdarray[0];
             var otherEdge = svg.getElementById(otherEdgeId);
+            var otherY = otherEdge.getAttribute('y');
+            var otherX = otherEdge.getAttribute('x');
+            for (i = 0; i < edges.length; i++) {
+                if (edges[i].getAttribute('y') === otherY && parseInt(edges[i].getAttribute('x')) < parseInt(otherX)
+                    || edges[i].getAttribute('x') === otherX && parseInt(edges[i].getAttribute('y')) < parseInt(otherY))
+                    edges[i].setAttribute('fill', '#ffe6e6');
+            }
             otherEdge.setAttribute('fill', properties.selectedEdgeColor);
         }
     }
     else {
+        for (i = 0; i < nodesEedge.length; i++) {
+            if (!confrontaColori(nodesEedge[i].getAttribute('fill'), properties.defaultEdgeColor))
+                edges.push(nodesEedge[i]);
+        }
+        var maxSelectedSameRaw = getSelectedSameRaw(edges, this);
+        var maxSelectedSameColumn = getSelectedSameColumn(edges, this);
+        if (maxSelectedSameRaw === undefined && maxSelectedSameColumn === undefined) {
+            for (i = 0; i < edges.length; i++) {
+                if (edges[i].getAttribute('y') === y && parseInt(edges[i].getAttribute('x')) < parseInt(x)
+                    || edges[i].getAttribute('x') === x && parseInt(edges[i].getAttribute('y')) < parseInt(y)) {
+                    edges[i].setAttribute('fill', '#f4f4f4');
+                }
+            }
+        }
+        else if (maxSelectedSameRaw !== undefined && maxSelectedSameColumn === undefined) {
+            for (var j = 0; j < edges.length; j++) {
+                if (edges[j].getAttribute('x') === x)
+                    edges[j].setAttribute('fill', '#f4f4f4');
+            }
+            if (parseInt(maxSelectedSameRaw.getAttribute('x')) < parseInt(this.getAttribute('x'))) {
+                for (j = 0; j < edges.length; j++) {
+                    if (parseInt(edges[j].getAttribute('x')) > parseInt(maxSelectedSameRaw.getAttribute('x')))
+                        edges[j].setAttribute('fill', '#f4f4f4');
+                }
+            }
+        }
+        else if (maxSelectedSameRaw === undefined && maxSelectedSameColumn !== undefined){
+            for (j = 0; j < edges.length; j++) {
+                if (edges[j].getAttribute('y') === y)
+                    edges[j].setAttribute('fill', '#f4f4f4');
+            }
+            if (parseInt(maxSelectedSameColumn.getAttribute('y')) < parseInt(this.getAttribute('y'))) {
+                for (j = 0; j < edges.length; j++) {
+                    if (parseInt(edges[j].getAttribute('y')) > parseInt(maxSelectedSameColumn.getAttribute('y')))
+                        edges[j].setAttribute('fill', '#f4f4f4');
+                }
+            }
+        }
+        else {
+           for (i=0; i<edges.length; i++){
+               if ((edges[i].getAttribute('x') === this.getAttribute('x') &&
+                    parseInt(edges[i].getAttribute('y')) < parseInt(this.getAttribute('y'))
+                    && parseInt(edges[i].getAttribute('y')) > parseInt(maxSelectedSameColumn.getAttribute('y')))
+                                ||
+                   (edges[i].getAttribute('y') === this.getAttribute('y') &&
+                    parseInt(edges[i].getAttribute('x')) < parseInt(this.getAttribute('x'))
+                    && parseInt(edges[i].getAttribute('x')) > parseInt(maxSelectedSameRaw.getAttribute('x'))))
+
+                   edges[i].setAttribute('fill', '#f4f4f4');
+           }
+        }
         this.setAttribute('fill', properties.defaultEdgeColor);
         if (properties.graphType === "undirected") {
-            var svg = document.getElementById('svg');
             var nodeIdarray = this.getAttribute('id').split("-");
             var otherEdgeId = nodeIdarray[1] + "-" + nodeIdarray[0];
             var otherEdge = svg.getElementById(otherEdgeId);
+            var otherY = otherEdge.getAttribute('y');
+            var otherX = otherEdge.getAttribute('x');
+            for (i = 0; i < edges.length; i++) {
+                if (edges[i].getAttribute('y') === otherY && parseInt(edges[i].getAttribute('x')) < parseInt(otherX)
+                    || edges[i].getAttribute('x') === otherX && parseInt(edges[i].getAttribute('y')) < parseInt(otherY))
+                    edges[i].setAttribute('fill', '#f4f4f4');
+            }
             otherEdge.setAttribute('fill', properties.defaultEdgeColor);
         }
     }
+}
+
+function getSelectedSameRaw(edges, edge) {
+    var selected = [];
+    for (var i = 0; i < edges.length; i++) {
+        if (edges[i].getAttribute('y') === edge.getAttribute('y') &&
+            edges[i].getAttribute('fill') === properties.selectedEdgeColor &&
+            edges[i] !== edge)
+            selected.push(edges[i]);
+    }
+    var maxSelected = selected[0];
+    for (i = 0; i < selected.length; i++) {
+        if (parseInt(selected[i].getAttribute('x')) > parseInt(maxSelected.getAttribute('x')))
+            maxSelected = selected[i];
+    }
+    return maxSelected;
+}
+
+function getSelectedSameColumn(edges, edge) {
+    var selected = [];
+    for (var i = 0; i < edges.length; i++) {
+        if (edges[i].getAttribute('x') === edge.getAttribute('x') &&
+            edges[i].getAttribute('fill') === properties.selectedEdgeColor &&
+            edges[i] !== edge)
+            selected.push(edges[i]);
+    }
+    var maxSelected = selected[0];
+    for (i = 0; i < selected.length; i++) {
+        if (parseInt(selected[i].getAttribute('y')) > parseInt(maxSelected.getAttribute('y')))
+            maxSelected = selected[i];
+    }
+    return maxSelected;
 }
 
 function zoomInMatrixEdge() {

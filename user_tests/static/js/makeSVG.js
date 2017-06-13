@@ -236,7 +236,9 @@ function makeSvgLDrawing(svgElement, svgNS, nodes, edges) {
 
 function makeSvgMatrix(svgElement, svgNS, nodes, edges) {
     makeMatrixNode(svgElement, nodes, svgNS);
-    makeMatrixEdge(svgElement, svgNS, nodes, edges);
+    var edgeGroup = document.createElementNS(svgNS,"g");
+    svgElement.appendChild(edgeGroup);
+    makeMatrixEdge(edgeGroup, svgNS, nodes, edges);
     return svgElement;
 }
 
@@ -297,8 +299,11 @@ function makeMatrixNode(svgElement, nodes, svgNS) {
         firstNode.setAttribute('stroke', 'white');
         firstNode.setAttribute('width', (parseInt(properties.nodeDimension) * 4).toString());
         firstNode.setAttribute('height', (parseInt(properties.nodeDimension) * 4).toString());
-        if (nodes[i].optionalColor)
+        var highlightedNode = "";
+        if (nodes[i].optionalColor) {
             firstNode.setAttribute('fill', nodes[i].optionalColor);
+            highlightedNode += nodes[i].id;
+        }
         else
             firstNode.setAttribute('fill', properties.defaultNodeColor);
         var secondNode = firstNode.cloneNode(false);
@@ -327,6 +332,7 @@ function makeMatrixNode(svgElement, nodes, svgNS) {
         svgElement.appendChild(firstLabel);
         svgElement.appendChild(secondLabel);
     }
+    console.log(highlightedNode);
 }
 
 function makeLDrawingNode(nodes, svgNS, svgElement) {
@@ -336,8 +342,11 @@ function makeLDrawingNode(nodes, svgNS, svgElement) {
         node.setAttribute('cx', (parseInt(nodes[i].x) * properties.coordinatesMultiplier).toString());
         node.setAttribute('cy', (parseInt(nodes[i].y) * properties.coordinatesMultiplier).toString());
         node.setAttribute('r', properties.nodeDimension);
-        if (nodes[i].optionalColor)
+        var highlightedNode = "";
+        if (nodes[i].optionalColor) {
             node.setAttribute('fill', nodes[i].optionalColor);
+            highlightedNode += nodes[i].id;
+        }
         else
             node.setAttribute('fill', properties.defaultNodeColor);
         node.setAttribute('stroke-width', "1");
@@ -354,6 +363,7 @@ function makeLDrawingNode(nodes, svgNS, svgElement) {
         label.textContent = label.getAttribute('id').substring(5);
         svgElement.appendChild(label);
     }
+    console.log(highlightedNode);
 }
 function makeLDrawingEdge(edges, nodes, svgNS, svgElement) {
     ordinaArchiLunghezzaVerticaleCrescente(edges, nodes);

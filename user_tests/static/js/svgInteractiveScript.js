@@ -101,12 +101,25 @@ function editMatrixEdge() {
             var otherEdge = svg.getElementById(otherEdgeId);
             var otherY = otherEdge.getAttribute('y');
             var otherX = otherEdge.getAttribute('x');
-            for (i = 0; i < edges.length; i++) {
-                if (edges[i].getAttribute('y') === otherY && parseInt(edges[i].getAttribute('x')) < parseInt(otherX)
-                    || edges[i].getAttribute('x') === otherX && parseInt(edges[i].getAttribute('y')) < parseInt(otherY))
-                    edges[i].setAttribute('fill', '#f4f4f4');
-            }
             otherEdge.setAttribute('fill', properties.defaultEdgeColor);
+            for (i = 0; i < nodesEedge.length; i++) {
+            //deseleziona i quadrati evidenziati sulla stessa colonna
+            if (nodesEedge[i].getAttribute('x') === otherX
+                && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
+                && parseInt(nodesEedge[i].getAttribute('y')) < parseInt(otherY)
+                && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
+                && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])) {
+                nodesEedge[i].setAttribute('fill', '#f4f4f4');
+            }
+            //deseleziona i quadrati evidenziati sulla stessa riga
+            if (nodesEedge[i].getAttribute('y') === otherY
+                && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
+                && parseInt(nodesEedge[i].getAttribute('x')) < parseInt(otherX)
+                && !existSelectedEdgeSameYGreaterX(nodesEedge,nodesEedge[i])
+                && !existSelectedEdgeSameXGreaterY(nodesEedge,nodesEedge[i])) {
+                nodesEedge[i].setAttribute('fill', '#f4f4f4');
+            }
+        }
         }
     }
 }

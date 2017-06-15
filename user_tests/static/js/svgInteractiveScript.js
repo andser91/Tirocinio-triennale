@@ -76,58 +76,25 @@ function editMatrixEdge() {
         }
     }
     else {
-        for (i = 0; i < nodesEedge.length; i++) {
-            if (!confrontaColori(nodesEedge[i].getAttribute('fill'), properties.defaultEdgeColor))
-                edges.push(nodesEedge[i]);
-        }
-        var maxSelectedSameRaw = getSelectedSameRaw(edges, this);
-        var maxSelectedSameColumn = getSelectedSameColumn(edges, this);
-        if (maxSelectedSameRaw === undefined && maxSelectedSameColumn === undefined) {
-            for (i = 0; i < edges.length; i++) {
-                if (edges[i].getAttribute('y') === y && parseInt(edges[i].getAttribute('x')) < parseInt(x)
-                    || edges[i].getAttribute('x') === x && parseInt(edges[i].getAttribute('y')) < parseInt(y)) {
-                    edges[i].setAttribute('fill', '#f4f4f4');
-                }
-            }
-        }
-        else if (maxSelectedSameRaw !== undefined && maxSelectedSameColumn === undefined) {
-            for (var j = 0; j < edges.length; j++) {
-                if (edges[j].getAttribute('x') === x)
-                    edges[j].setAttribute('fill', '#f4f4f4');
-            }
-            if (parseInt(maxSelectedSameRaw.getAttribute('x')) < parseInt(this.getAttribute('x'))) {
-                for (j = 0; j < edges.length; j++) {
-                    if (parseInt(edges[j].getAttribute('x')) > parseInt(maxSelectedSameRaw.getAttribute('x')))
-                        edges[j].setAttribute('fill', '#f4f4f4');
-                }
-            }
-        }
-        else if (maxSelectedSameRaw === undefined && maxSelectedSameColumn !== undefined){
-            for (j = 0; j < edges.length; j++) {
-                if (edges[j].getAttribute('y') === y)
-                    edges[j].setAttribute('fill', '#f4f4f4');
-            }
-            if (parseInt(maxSelectedSameColumn.getAttribute('y')) < parseInt(this.getAttribute('y'))) {
-                for (j = 0; j < edges.length; j++) {
-                    if (parseInt(edges[j].getAttribute('y')) > parseInt(maxSelectedSameColumn.getAttribute('y')))
-                        edges[j].setAttribute('fill', '#f4f4f4');
-                }
-            }
-        }
-        else {
-           for (i=0; i<edges.length; i++){
-               if ((edges[i].getAttribute('x') === this.getAttribute('x') &&
-                    parseInt(edges[i].getAttribute('y')) < parseInt(this.getAttribute('y'))
-                    && parseInt(edges[i].getAttribute('y')) > parseInt(maxSelectedSameColumn.getAttribute('y')))
-                                ||
-                   (edges[i].getAttribute('y') === this.getAttribute('y') &&
-                    parseInt(edges[i].getAttribute('x')) < parseInt(this.getAttribute('x'))
-                    && parseInt(edges[i].getAttribute('x')) > parseInt(maxSelectedSameRaw.getAttribute('x'))))
-
-                   edges[i].setAttribute('fill', '#f4f4f4');
-           }
-        }
         this.setAttribute('fill', properties.defaultEdgeColor);
+        for (i = 0; i < nodesEedge.length; i++) {
+            //deseleziona i quadrati evidenziati sulla stessa colonna
+            if (nodesEedge[i].getAttribute('x') === this.getAttribute('x')
+                && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
+                && parseInt(nodesEedge[i].getAttribute('y')) < parseInt(this.getAttribute('y'))
+                && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
+                && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])) {
+                nodesEedge[i].setAttribute('fill', '#f4f4f4');
+            }
+            //deseleziona i quadrati evidenziati sulla stessa riga
+            if (nodesEedge[i].getAttribute('y') === this.getAttribute('y')
+                && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
+                && parseInt(nodesEedge[i].getAttribute('x')) < parseInt(this.getAttribute('x'))
+                && !existSelectedEdgeSameYGreaterX(nodesEedge,nodesEedge[i])
+                && !existSelectedEdgeSameXGreaterY(nodesEedge,nodesEedge[i])) {
+                nodesEedge[i].setAttribute('fill', '#f4f4f4');
+            }
+        }
         if (properties.graphType === "undirected") {
             var nodeIdarray = this.getAttribute('id').split("-");
             var otherEdgeId = nodeIdarray[1] + "-" + nodeIdarray[0];
@@ -144,37 +111,28 @@ function editMatrixEdge() {
     }
 }
 
-function getSelectedSameRaw(edges, edge) {
-    var selected = [];
+function existSelectedEdgeSameYGreaterX(edges, edge) {
+    var exist = false;
     for (var i = 0; i < edges.length; i++) {
-        if (edges[i].getAttribute('y') === edge.getAttribute('y') &&
-            edges[i].getAttribute('fill') === properties.selectedEdgeColor &&
-            edges[i] !== edge)
-            selected.push(edges[i]);
+        if (edges[i].getAttribute('y') === edge.getAttribute('y')
+            && parseInt(edges[i].getAttribute('x')) > parseInt(edge.getAttribute('x'))
+            && edges[i].getAttribute('fill') === properties.selectedEdgeColor)
+            exist = true;
     }
-    var maxSelected = selected[0];
-    for (i = 0; i < selected.length; i++) {
-        if (parseInt(selected[i].getAttribute('x')) > parseInt(maxSelected.getAttribute('x')))
-            maxSelected = selected[i];
-    }
-    return maxSelected;
+    return exist;
 }
 
-function getSelectedSameColumn(edges, edge) {
-    var selected = [];
+function existSelectedEdgeSameXGreaterY(edges, edge) {
+    var exist = false;
     for (var i = 0; i < edges.length; i++) {
-        if (edges[i].getAttribute('x') === edge.getAttribute('x') &&
-            edges[i].getAttribute('fill') === properties.selectedEdgeColor &&
-            edges[i] !== edge)
-            selected.push(edges[i]);
+        if (edges[i].getAttribute('x') === edge.getAttribute('x')
+            && parseInt(edges[i].getAttribute('y')) > parseInt(edge.getAttribute('y'))
+            && edges[i].getAttribute('fill') === properties.selectedEdgeColor)
+        exist = true;
     }
-    var maxSelected = selected[0];
-    for (i = 0; i < selected.length; i++) {
-        if (parseInt(selected[i].getAttribute('y')) > parseInt(maxSelected.getAttribute('y')))
-            maxSelected = selected[i];
-    }
-    return maxSelected;
+    return exist;
 }
+
 
 function zoomInMatrixEdge() {
     if (confrontaColori(this.getAttribute('fill'), properties.defaultEdgeColor) ||

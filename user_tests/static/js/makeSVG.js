@@ -332,7 +332,6 @@ function makeMatrixNode(svgElement, nodes, svgNS) {
         svgElement.appendChild(firstLabel);
         svgElement.appendChild(secondLabel);
     }
-    console.log(highlightedNode);
 }
 
 function makeLDrawingNode(nodes, svgNS, svgElement) {

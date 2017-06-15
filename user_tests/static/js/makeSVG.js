@@ -297,6 +297,7 @@ function makeMatrixNode(svgElement, nodes, svgNS) {
         firstNode.setAttribute('id', "raw" + nodes[i].id);
         firstNode.setAttribute('stroke-width', '1');
         firstNode.setAttribute('stroke', 'white');
+        firstNode.setAttribute('class','node');
         firstNode.setAttribute('width', (parseInt(properties.nodeDimension) * 4).toString());
         firstNode.setAttribute('height', (parseInt(properties.nodeDimension) * 4).toString());
         var highlightedNode = "";

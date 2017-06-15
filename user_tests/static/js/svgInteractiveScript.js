@@ -58,7 +58,8 @@ function editMatrixEdge() {
         for (i = 0; i < edges.length; i++) {
             if (edges[i].getAttribute('y') === y && parseInt(edges[i].getAttribute('x')) < parseInt(x)
                 || edges[i].getAttribute('x') === x && parseInt(edges[i].getAttribute('y')) < parseInt(y))
-                edges[i].setAttribute('fill', '#ffe6e6');
+                if (nodesEedge[i].getAttribute('class') !== "node")
+                    edges[i].setAttribute('fill', '#ffe6e6');
         }
         this.setAttribute('fill', properties.selectedEdgeColor);
         if (properties.graphType === "undirected") {
@@ -70,7 +71,8 @@ function editMatrixEdge() {
             for (i = 0; i < edges.length; i++) {
                 if (edges[i].getAttribute('y') === otherY && parseInt(edges[i].getAttribute('x')) < parseInt(otherX)
                     || edges[i].getAttribute('x') === otherX && parseInt(edges[i].getAttribute('y')) < parseInt(otherY))
-                    edges[i].setAttribute('fill', '#ffe6e6');
+                    if (edges[i].getAttribute('class') !== "node")
+                        edges[i].setAttribute('fill', '#ffe6e6');
             }
             otherEdge.setAttribute('fill', properties.selectedEdgeColor);
         }
@@ -83,15 +85,17 @@ function editMatrixEdge() {
                 && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
                 && parseInt(nodesEedge[i].getAttribute('y')) < parseInt(this.getAttribute('y'))
                 && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
-                && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])) {
+                && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])
+                && nodesEedge[i].getAttribute('class') !== "node") {
                 nodesEedge[i].setAttribute('fill', '#f4f4f4');
             }
             //deseleziona i quadrati evidenziati sulla stessa riga
             if (nodesEedge[i].getAttribute('y') === this.getAttribute('y')
                 && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
                 && parseInt(nodesEedge[i].getAttribute('x')) < parseInt(this.getAttribute('x'))
-                && !existSelectedEdgeSameYGreaterX(nodesEedge,nodesEedge[i])
-                && !existSelectedEdgeSameXGreaterY(nodesEedge,nodesEedge[i])) {
+                && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
+                && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])
+                && nodesEedge[i].getAttribute('class') !== "node") {
                 nodesEedge[i].setAttribute('fill', '#f4f4f4');
             }
         }
@@ -103,23 +107,25 @@ function editMatrixEdge() {
             var otherX = otherEdge.getAttribute('x');
             otherEdge.setAttribute('fill', properties.defaultEdgeColor);
             for (i = 0; i < nodesEedge.length; i++) {
-            //deseleziona i quadrati evidenziati sulla stessa colonna
-            if (nodesEedge[i].getAttribute('x') === otherX
-                && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
-                && parseInt(nodesEedge[i].getAttribute('y')) < parseInt(otherY)
-                && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
-                && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])) {
-                nodesEedge[i].setAttribute('fill', '#f4f4f4');
+                //deseleziona i quadrati evidenziati sulla stessa colonna
+                if (nodesEedge[i].getAttribute('x') === otherX
+                    && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
+                    && parseInt(nodesEedge[i].getAttribute('y')) < parseInt(otherY)
+                    && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
+                    && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])
+                    && nodesEedge[i].getAttribute('class') !== "node") {
+                    nodesEedge[i].setAttribute('fill', '#f4f4f4');
+                }
+                //deseleziona i quadrati evidenziati sulla stessa riga
+                if (nodesEedge[i].getAttribute('y') === otherY
+                    && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
+                    && parseInt(nodesEedge[i].getAttribute('x')) < parseInt(otherX)
+                    && !existSelectedEdgeSameYGreaterX(nodesEedge, nodesEedge[i])
+                    && !existSelectedEdgeSameXGreaterY(nodesEedge, nodesEedge[i])
+                    && nodesEedge[i].getAttribute('class') !== "node") {
+                    nodesEedge[i].setAttribute('fill', '#f4f4f4');
+                }
             }
-            //deseleziona i quadrati evidenziati sulla stessa riga
-            if (nodesEedge[i].getAttribute('y') === otherY
-                && nodesEedge[i].getAttribute('fill') === "#ffe6e6"
-                && parseInt(nodesEedge[i].getAttribute('x')) < parseInt(otherX)
-                && !existSelectedEdgeSameYGreaterX(nodesEedge,nodesEedge[i])
-                && !existSelectedEdgeSameXGreaterY(nodesEedge,nodesEedge[i])) {
-                nodesEedge[i].setAttribute('fill', '#f4f4f4');
-            }
-        }
         }
     }
 }
@@ -141,7 +147,7 @@ function existSelectedEdgeSameXGreaterY(edges, edge) {
         if (edges[i].getAttribute('x') === edge.getAttribute('x')
             && parseInt(edges[i].getAttribute('y')) > parseInt(edge.getAttribute('y'))
             && edges[i].getAttribute('fill') === properties.selectedEdgeColor)
-        exist = true;
+            exist = true;
     }
     return exist;
 }

@@ -1,4 +1,4 @@
-function makeSVG() {
+function makeSVG(highlightedNode) {
 
     var question = document.getElementById('question');
     var svgElement;
@@ -37,17 +37,17 @@ function makeSVG() {
             nodes[i].y = yMax - nodes[i].y;
         }
         if (properties.drawingStyle === "L-drawing") {
-            svgElement = makeSvgLDrawing(svgElement, svgNS, nodes, edges);
+            svgElement = makeSvgLDrawing(svgElement, svgNS, nodes, edges,highlightedNode);
             if (properties.editable)
                 svgElement.addEventListener('mouseover', svgScript, false);
         }
         if (properties.drawingStyle === "overloaded-orthogonal") {
-            svgElement = makeSvgOO(svgElement, svgNS, nodes, edges);
+            svgElement = makeSvgOO(svgElement, svgNS, nodes, edges,highlightedNode);
             if (properties.editable)
                 svgElement.addEventListener('mouseover', svgScript, false);
         }
         else if (properties.drawingStyle === "matrix") {
-            svgElement = makeSvgMatrix(svgElement, svgNS, nodes, edges);
+            svgElement = makeSvgMatrix(svgElement, svgNS, nodes, edges,highlightedNode);
             if (properties.editable)
                 svgElement.addEventListener('mouseover', svgScript, false);
         }
@@ -221,21 +221,21 @@ function calcolaViewBox(svgElement, image_file) {
 }
 
 
-function makeSvgOO(svgElement, svgNS, nodes, edges) {
+function makeSvgOO(svgElement, svgNS, nodes, edges,highlightedNode) {
     makeOOEdge(edges, nodes, svgNS, svgElement);
-    makeLDrawingNode(nodes, svgNS, svgElement);
+    makeLDrawingNode(nodes, svgNS, svgElement,highlightedNode);
     return svgElement;
 }
 
 
-function makeSvgLDrawing(svgElement, svgNS, nodes, edges) {
+function makeSvgLDrawing(svgElement, svgNS, nodes, edges,highlightedNode) {
     makeLDrawingEdge(edges, nodes, svgNS, svgElement);
-    makeLDrawingNode(nodes, svgNS, svgElement);
+    makeLDrawingNode(nodes, svgNS, svgElement,highlightedNode);
     return svgElement;
 }
 
-function makeSvgMatrix(svgElement, svgNS, nodes, edges) {
-    makeMatrixNode(svgElement, nodes, svgNS);
+function makeSvgMatrix(svgElement, svgNS, nodes, edges,highlightedNode) {
+    makeMatrixNode(svgElement, nodes, svgNS,highlightedNode);
     var edgeGroup = document.createElementNS(svgNS,"g");
     svgElement.appendChild(edgeGroup);
     makeMatrixEdge(edgeGroup, svgNS, nodes, edges);
@@ -285,7 +285,7 @@ function makeMatrixEdge(svgElement, svgNS, nodes, edges) {
     }
 }
 
-function makeMatrixNode(svgElement, nodes, svgNS) {
+function makeMatrixNode(svgElement, nodes, svgNS,highlightedNode) {
     var beginX = "20";
     var beginY = "20";
     var x = "20";
@@ -300,10 +300,10 @@ function makeMatrixNode(svgElement, nodes, svgNS) {
         firstNode.setAttribute('class','node');
         firstNode.setAttribute('width', (parseInt(properties.nodeDimension) * 4).toString());
         firstNode.setAttribute('height', (parseInt(properties.nodeDimension) * 4).toString());
-        var highlightedNode = "";
         if (nodes[i].optionalColor) {
             firstNode.setAttribute('fill', nodes[i].optionalColor);
-            highlightedNode += nodes[i].id;
+            if (properties !== undefined)
+                highlightedNode.push(nodes[i]);
         }
         else
             firstNode.setAttribute('fill', properties.defaultNodeColor);
@@ -335,17 +335,17 @@ function makeMatrixNode(svgElement, nodes, svgNS) {
     }
 }
 
-function makeLDrawingNode(nodes, svgNS, svgElement) {
+function makeLDrawingNode(nodes, svgNS, svgElement,highlightedNode) {
     for (var i = 0; i < nodes.length; i++) {
         var node = document.createElementNS(svgNS, 'circle');
         node.setAttribute('id', nodes[i].id);
         node.setAttribute('cx', (parseInt(nodes[i].x) * properties.coordinatesMultiplier).toString());
         node.setAttribute('cy', (parseInt(nodes[i].y) * properties.coordinatesMultiplier).toString());
         node.setAttribute('r', properties.nodeDimension);
-        var highlightedNode = "";
         if (nodes[i].optionalColor) {
             node.setAttribute('fill', nodes[i].optionalColor);
-            highlightedNode += nodes[i].id;
+            if (properties !== undefined)
+                highlightedNode.push(nodes[i]);
         }
         else
             node.setAttribute('fill', properties.defaultNodeColor);
@@ -363,7 +363,6 @@ function makeLDrawingNode(nodes, svgNS, svgElement) {
         label.textContent = label.getAttribute('id').substring(5);
         svgElement.appendChild(label);
     }
-    console.log(highlightedNode);
 }
 function makeLDrawingEdge(edges, nodes, svgNS, svgElement) {
     ordinaArchiLunghezzaVerticaleCrescente(edges, nodes);

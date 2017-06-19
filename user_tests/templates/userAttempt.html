@@ -5,6 +5,7 @@
 
 {% block body %}
     <script>
+    var highlightedNode = [];
         function verifyAnswer() {
             var svg = document.getElementById('svg');
             var answer = "";
@@ -67,14 +68,14 @@
                     if (editableProperties[0] === "edges") {
                         properties.editable = ["edges"];
                     }
-                    makeSVG();
+                    makeSVG(highlightedNode);
                 }
                 else if (properties.drawingStyle === "overloaded-orthogonal") {
                     properties = {{ propertiesM|tojson }};
                     if (editableProperties[0] === "edges") {
                         properties.editable = ["edges"];
                     }
-                    makeSVG();
+                    makeSVG(highlightedNode);
                 }
                 else if (properties.drawingStyle === "matrix") {
                     if (editableProperties[0] === "edges") {
@@ -89,7 +90,7 @@
                         properties.editable = ["edges"];
                         image_file = {{ image_file|tojson }};
                         document.getElementById('textQuestion').innerHTML = "Select the path between the two highlighted vertices"
-                        makeSVG();
+                        makeSVG(highlightedNode);
                     }
                 }
             }
@@ -114,7 +115,7 @@
         var properties = {{ propertiesL|tojson }};
         var image_file = {{ image_file|tojson }};
         $(window).load(function () {
-            makeSVG();
+            makeSVG(highlightedNode);
         });
     </script>
 {% endblock %}

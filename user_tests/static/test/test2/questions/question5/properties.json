@@ -8,5 +8,6 @@
   "defaultLabelColor": "black",
   "selectedNodeColor": "red",
   "defaultEdgeColor": "blue",
-  "selectedEdgeColor": "red"
+  "selectedEdgeColor": "red",
+  "verify":"cicle"
 }

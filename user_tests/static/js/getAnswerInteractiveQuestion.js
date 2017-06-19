@@ -22,7 +22,7 @@ function externalGetAnswer(properties) {
         edges = svg.getElementsByTagName('path');
         for (i = 0; i < edges.length; i++) {
             if (confrontaColori(edges[i].getAttribute('stroke'), properties.selectedEdgeColor)) {
-                answer = answer + '[' + edges[i].getAttribute('id') + '],';
+                answer = answer + edges[i].getAttribute('id') + ',';
             }
         }
     }
@@ -37,7 +37,7 @@ function externalGetAnswer(properties) {
         if (properties.graphType !== "undirected") {
             for (i = 0; i < nodesEedge.length; i++) {
                 if (confrontaColori(nodesEedge[i].getAttribute('fill'), properties.selectedEdgeColor))
-                    answer = answer + '[' + nodesEedge[i].getAttribute('id') + '],';
+                    answer = answer + nodesEedge[i].getAttribute('id') + ',';
             }
         }
         else {
@@ -48,7 +48,7 @@ function externalGetAnswer(properties) {
             }
             edges = eliminaArchiIndiretti(edges);
             for (i = 0; i < edges.length; i++)
-                answer = answer + '[' + edges[i].getAttribute('id') + '],';
+                answer = answer + edges[i].getAttribute('id') + ',';
         }
     }
     return answer.substring(0, answer.length - 1)

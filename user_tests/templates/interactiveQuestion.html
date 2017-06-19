@@ -2,6 +2,8 @@
 {% block header %}
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script type="application/javascript" src="{{ get_answer }}"></script>
+    <script type="application/javascript"
+            src="{{ url_for('static', filename='js/verifyAnswerInteractiveQuestion.js') }}"></script>
     <script>
 
         //memorizza il tempo di inizio della domanda
@@ -10,11 +12,12 @@
             return d.getTime();
         }
         var beginTime = getBeginTime();
-
+        var highlightedNode = [];
         //calcola il tempo impiegato per rispondere e lo assegna al campo hidden 'time'
         //aggiorna il contatore step e memorizza la risposta
         function sendTime() {
-         var d = new Date();
+            var properties = {{ properties|tojson }};
+            var d = new Date();
             var month = d.getMonth();
             if (month < 10)
                 month = '0' + month;
@@ -36,11 +39,14 @@
             document.getElementById('dataEora').value = date + ' ' + hour;
             document.getElementById('step').value = {{ step }} +1;
             document.getElementById('time').value = t;
-            document.getElementById('answer').value = getAnswer();
+            var answer = getAnswer(properties);
+            document.getElementById('answer').value = answer;
+            var verify = properties.verify;
+            document.getElementById('correct_answer').value = verifyAnswer(highlightedNode, answer, verify);
+
         }
         //calcola la risposta analizzando gli elementi selezionati
-        function getAnswer() {
-            properties = {{ properties|tojson }};
+        function getAnswer(properties) {
             return externalGetAnswer(properties);
         }
     </script>
@@ -69,7 +75,7 @@
                 <input type="hidden" name="total_number_of_questions" id="total_number_of_questions"
                        value={{ total_number_of_questions }}>
                 <input type="hidden" name="id_question" id="id_question" value={{ id_question }}>
-                <input type="hidden" name="correct_answer" id="correct-answer" value={{ correct_answer }}>
+                <input type="hidden" name="correct_answer" id="correct_answer" value={{ correct_answer }}>
                 <input type='submit' id='submitButton' value='Submit' onclick='sendTime()' formmethod='post'
                        formaction="{{ url_for('answers') }}" style='margin-top:10px' class="btn btn-success"/>
             </fieldset>
@@ -82,7 +88,7 @@
         var properties = {{ properties|tojson }};
         var image_file = {{ image_file|tojson }};
         $(window).load(function () {
-            makeSVG(image_file);
+            makeSVG(highlightedNode);
         });
 
 

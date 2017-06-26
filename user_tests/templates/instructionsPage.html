@@ -13,10 +13,10 @@
     </script>
     <script type="application/javascript" src="{{ url_for('static', filename='js/instructions.js') }}"></script>
 
-    <div style="margin-right: 10%; margin-left: 10%;>
-        <div style="text-align: center" onload="caricaTesto()">
+    <div style="margin-right: 10%; margin-left: 10%;">
+        <div style='text-align:center' onload="caricaTesto()">
             <h2 style="margin-bottom: 5%; text-align: center">
-                Please read the following instructions for proper test run before you begin it:
+                Please read the following instructions before you begin test:
             </h2>
             <p style="text-align: center;margin-left: 15%; margin-right: 15%; font-size: 16pt" id="instr"></p>
         </div>
@@ -24,7 +24,7 @@
     <div style="margin-left: 12%; margin-right: 12%;">
         <form method="post" action="{{ url_for('instructions') }}" id="form">
             <input type="button" id="next" onclick="nextText()" class="btn btn-success" value="Next"
-                   style="float: right">
+                   style="position: absolute; top: 45%; right: 15%">
         </form>
     </div>
 

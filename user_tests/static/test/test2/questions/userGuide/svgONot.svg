@@ -111,7 +111,7 @@
          d="M160 80 L160 40 L200 40"
          stroke-width="1"
          stroke-linejoin="round"
-         stroke="red"
+         stroke="black"
          fill="none"/>
    <circle id="nodev0"
             cx="180"
@@ -148,7 +148,7 @@
             cx="80"
             cy="160"
             r="5"
-            fill="orange"
+            fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
     <polygon stroke="black"
@@ -242,8 +242,8 @@
             fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
-    <polygon stroke="red"
-            fill="red"
+    <polygon stroke="black"
+            fill="black"
             points="195,40 193,42 193,38" />
    <text id="labell4"
          x="196"

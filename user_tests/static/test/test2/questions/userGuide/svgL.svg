@@ -74,6 +74,9 @@
             fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
+   <polygon stroke="black"
+            fill="black"
+            points="175,200 173,202 173,198" />
    <text id="labelv0"
          x="176"
          y="202"
@@ -88,9 +91,6 @@
             fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
-   <polygon stroke="black"
-            fill="black"
-            points="160,125 162,127 158,127" />
    <polygon stroke="red"
             fill="red"
             points="155,120 153,122 153,118" />
@@ -167,6 +167,9 @@
             fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
+   <polygon stroke="black"
+            fill="black"
+            points="145,180 147,182 147,178" />
    <text id="labell5"
          x="136"
          y="182"
@@ -181,6 +184,9 @@
             fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
+   <polygon stroke="black"
+            fill="black"
+            points="195,160 193,162 193,158" />
    <text id="labell4"
          x="196"
          y="162"
@@ -212,9 +218,6 @@
             fill="#66FF66"
             stroke-width="1"
             stroke="#000000"/>
-   <polygon stroke="black"
-            fill="black"
-            points="120,135 122,133 118,133" />
    <text id="labell2"
          x="116"
          y="142"

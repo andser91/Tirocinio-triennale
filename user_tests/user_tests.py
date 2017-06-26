@@ -22,7 +22,11 @@ def size():
     image_fileL = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgL.svg"
     image_fileO = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgO.svg"
     image_fileM = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgM.svg"
-    return render_template('userGuide.html',image_fileL=image_fileL, image_fileO=image_fileO, image_fileM=image_fileM)
+    image_fileLNot = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgLNot.svg"
+    image_fileONot = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgONot.svg"
+    image_fileMNot = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgMNot.svg"
+    return render_template('userGuide.html',image_fileL=image_fileL, image_fileO=image_fileO, image_fileM=image_fileM,
+                           image_fileLNot=image_fileLNot, image_fileONot=image_fileONot, image_fileMNot=image_fileMNot)
 
 
 @app.route('/userGuide', methods=['POST'])

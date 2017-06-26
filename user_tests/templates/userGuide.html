@@ -3,39 +3,54 @@
 {% block body %}
     <script type="application/javascript" src="{{ url_for('static', filename='js/makeSVG.js')}}"></script>
     <script>
+        imageFile = [];
+        textGuide = [];
+        imageFile[0] = "{{ image_fileLNot }}";
+        imageFile[1] = "{{ image_fileL }}";
+        imageFile[2] = "{{ image_fileONot }}";
+        imageFile[3] = "{{ image_fileO }}";
+        imageFile[4] = "{{ image_fileMNot }}";
+        imageFile[5] = "{{ image_fileM }}";
+        textGuide[0] = "This is an 'L-drawing' of a directed graph. Edges leave the nodes vertically and enter them horizontally." +
+                       "Each edge has an L-shape.<br> Edges may partially overlap.";
+        textGuide[1] = "For example:<br>- The highlighted edge connects node2 to node1<br>- Node2 (highlighted) is a common " +
+                        "neighbour of nodes 3,10 and 5";
+        textGuide[2] = "This is an 'overloaded-orthogonal' drawing of a directed graph.<br>Edges are formed by two segments " +
+                        "and always turn clockwise.<br>Edges may partially overlap.<br>" +
+                        "A small dot in acrossing means that there is an edge turning clockwise and some others proceding straight.";
+        textGuide[3] = "For example:<br>- The highlighted edge connects node1 to node7<br>- Node2 (highlighted) is a common " +
+                        "neighbour of nodes 10 and 7";
+        textGuide[4] = "This is a matrix representation of a directed graph.<br>A blue-filled cell at row i and column j " +
+                        "indicates an edge from node i to node j";
+        textGuide[5] = "For example:<br>- The highlighted edge connects node10 to node4<br>- Node2 (highlighted) is a common" +
+                        "neighbour of nodes 1 and 7";
         document.getElementById('starter-template').setAttribute('style','padding-top: 0');
     </script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/userGuide.js') }}"></script>
 
     <div>
         <div style="text-align: center">
             <h2 style="text-align: center; margin-bottom: 2%">
                 In the test you will encounter three graph design styles:<br>
             </h2>
-            <div id="L-Drawing" class="col-sm-4" style="border-style: solid; padding: 0" >
-                <p style="font-size: 16pt">L-Drawing</p>
-                <object id="LObject" type="image/svg+xml" data="{{ image_fileL }}"></object>
-                <p style="font-size: 12pt; color: red">- The highlighted line is an edge that connect the node 2 to the node 1</p>
-                <p style="font-size: 12pt; color: orange">- The highlighted node(node 2) is the neighbour in common between the node 3, the node 10 and the node 5</p>
+            <div class="col-sm-5" style="border-style: solid; padding: 0; margin-right: 10%" >
+                <object id="svgObject" type="image/svg+xml" data="{{ image_fileLNot }}"></object>
             </div>
-            <div id="matrix" class="col-sm-4" style="border-style: solid; padding: 0">
-                 <p style="font-size: 16pt">Overloaded-Orthogonal</p>
-                <object id="OObject" type="image/svg+xml" data="{{ image_fileO }}"></object>
-                <p style="font-size: 12pt; color: red">- The highlighted line is an edge that connect the node 1 to the node 7</p>
-                <p style="font-size: 12pt; color: orange">- The highlighted node(node 2) is the neighbour in common between the node 7 and the node 10</p>
-            </div>
-            <div id="OO" class="col-sm-4" style="border-style: solid; padding: 0">
-                 <p style="font-size: 16pt">Matrix</p>
-                <object id="MObject" type="image/svg+xml" data="{{ image_fileM }}"></object>
-                <p style="font-size: 12pt; color: blue">- The blue rects are edge</p>
-                <p style="font-size: 12pt; color: red">- The highlighted rect is an edge that connect the node 10 to the node 4</p>
-                <p style="font-size: 12pt; color: orange">- The highlighted node(node 2) is the neighbour in common between the node 1 and the node 7</p>
+            <div>
+                <p id="textGuide" style="font-size: 16pt; text-align: left">
+                    This is an "L-drawing" of a directed graph.<br>
+                    Edges leave the nodes vertically and enter them horizontally.<br>
+                    Each edge has an L-shape.<br>
+                    Edges may partially overlap.
+                </p>
             </div>
 
         </div>
     </div>
     <div style="margin-left: 12%; margin-right: 12%;">
         <form method="post" action="{{ url_for('userGuide') }}" id="form">
-            <input type="submit" id="Ok" class="btn btn-success" value="Ok, I got it!" style="margin-top: 2%">
+            <input type="button" id="next" class="btn btn-success" value="Next" style="margin-top: 2%; float: right"
+                   onclick="nextInstruction()">
         </form>
     </div>
 

@@ -650,8 +650,8 @@ function AggiungiPuntoUp(svg, svgNS, edges, edge, nodes) {
             var blackPoint = document.createElementNS(svgNS, "ellipse");
             blackPoint.setAttribute('fill', properties.defaultEdgeColor);
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
-            blackPoint.setAttribute('rx', '1');
-            blackPoint.setAttribute('ry', '1');
+            blackPoint.setAttribute('rx', '2');
+            blackPoint.setAttribute('ry', '2');
             if (parseInt(toNodeAggiunto.y) > parseInt(toNodeDaAggiungere.y)) {
                 blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
                 blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
@@ -666,8 +666,8 @@ function AggiungiPuntoUp(svg, svgNS, edges, edge, nodes) {
             var blackPoint = document.createElementNS(svgNS, "ellipse");
             blackPoint.setAttribute('fill', properties.defaultEdgeColor);
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
-            blackPoint.setAttribute('rx', '1');
-            blackPoint.setAttribute('ry', '1');
+            blackPoint.setAttribute('rx', '2');
+            blackPoint.setAttribute('ry', '2');
             if (parseInt(fromNodeAggiunto.x) > parseInt(fromNodeDaAggiungere.x)) {
                 blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
                 blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
@@ -691,8 +691,8 @@ function AggiungiPuntoDown(svg, svgNS, edges, edge, nodes) {
             var blackPoint = document.createElementNS(svgNS, "ellipse");
             blackPoint.setAttribute('fill', properties.defaultEdgeColor);
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
-            blackPoint.setAttribute('rx', '1');
-            blackPoint.setAttribute('ry', '1');
+            blackPoint.setAttribute('rx', '2');
+            blackPoint.setAttribute('ry', '2');
             if (parseInt(toNodeAggiunto.y) > parseInt(toNodeDaAggiungere.y)) {
                 blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
                 blackPoint.setAttribute('cy', parseInt(toNodeDaAggiungere.y) * properties.coordinatesMultiplier);
@@ -707,8 +707,8 @@ function AggiungiPuntoDown(svg, svgNS, edges, edge, nodes) {
             var blackPoint = document.createElementNS(svgNS, "ellipse");
             blackPoint.setAttribute('fill', properties.defaultEdgeColor);
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
-            blackPoint.setAttribute('rx', '1');
-            blackPoint.setAttribute('ry', '1');
+            blackPoint.setAttribute('rx', '2');
+            blackPoint.setAttribute('ry', '2');
             if (parseInt(fromNodeAggiunto.x) > parseInt(fromNodeDaAggiungere.x)) {
                 blackPoint.setAttribute('cx', parseInt(fromNodeDaAggiungere.x) * properties.coordinatesMultiplier);
                 blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);

@@ -105,6 +105,8 @@
         <form name="answerForm" style="text-align: left">
             <h3 style="text-align: left">Let's see if you got it:</h3>
             <h4 style="text-align: left" id="textQuestion"> {{ text_question }}</h4>
+            <input type="hidden" name="user" id="user" value={{ user }}>
+            <input type="hidden" name="group" id="group" value={{ group }}>
             <input type="button" class="btn btn-success" value="next" onclick="goForward()" id="button">
         </form>
     </div>

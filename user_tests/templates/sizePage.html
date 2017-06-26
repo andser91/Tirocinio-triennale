@@ -36,6 +36,8 @@
                 </ul>
         </div>
         <form method="post" action="{{ url_for('size') }}">
+             <input type="hidden" name="user" id="user" value={{ user }}>
+            <input type="hidden" name="group" id="group" value={{ group }}>
             <input style="align-content: center" type="submit" value="Done" class="btn btn-success">
         </form>
     </div>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, json, url_for
+from flask import Flask, render_template, request, json, url_for, session
 import config
 import random
 
@@ -9,16 +9,20 @@ app = Flask(__name__)
 def index():
     with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
         data = json.load(data_file)
-        return render_template('instructionsPage.html', istruzioni=data['instructions'])
+        return render_template('presentationPage.html', group=data['groups'])
 
 
 @app.route('/instructions', methods=['POST'])
 def instructions():
-    return render_template('sizePage.html')
+    user = request.form['user']
+    group = request.form['group']
+    return render_template('sizePage.html', user=user, group=group)
 
 
 @app.route('/size', methods=['POST'])
 def size():
+    user = request.form['user']
+    group = request.form['group']
     image_fileL = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgL.svg"
     image_fileO = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgO.svg"
     image_fileM = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgM.svg"
@@ -26,11 +30,14 @@ def size():
     image_fileONot = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgONot.svg"
     image_fileMNot = config.QUESTION_DIRECTORY + "userGuide" + "/" + "svgMNot.svg"
     return render_template('userGuide.html',image_fileL=image_fileL, image_fileO=image_fileO, image_fileM=image_fileM,
-                           image_fileLNot=image_fileLNot, image_fileONot=image_fileONot, image_fileMNot=image_fileMNot)
+                           image_fileLNot=image_fileLNot, image_fileONot=image_fileONot, image_fileMNot=image_fileMNot,
+                           user=user, group=group)
 
 
 @app.route('/userGuide', methods=['POST'])
 def userGuide():
+    user = request.form['user']
+    group = request.form['group']
     with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "propertiesL.json") as json_file:
         propertiesL = json.load(json_file)
     with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "propertiesO.json") as json_file:
@@ -42,14 +49,40 @@ def userGuide():
     with app.open_resource(config.QUESTION_DIRECTORY + "userAttempt" + "/" + "coord.json") as coord_json:
         coord = json.load(coord_json)
         return render_template('userAttempt.html', propertiesL=propertiesL, propertiesM=propertiesM, propertiesO=propertiesO,
-                                image_file=coord, text_question=text_question)
+                                image_file=coord, text_question=text_question, user=user, group=group)
 
 
 @app.route('/userAttempt', methods=['POST'])
 def userAttempt():
-    with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
-        data = json.load(data_file)
-        return render_template('presentationPage.html', group=data['groups'])
+    user = request.form['user']
+    group = request.form['group']
+    questions_string = make_string_from_json()
+    i = 0
+    while i < len(config.RANGES_OF_RANDOMIZATION):
+        questions_string = randomize(questions_string, config.RANGES_OF_RANDOMIZATION[i][0],
+                                     config.RANGES_OF_RANDOMIZATION[i][1])
+        i = i + 1
+    total_number_of_questions = config.TEST_LENGTH
+    id_question = int(questions_string.split('#')[0])
+    questions_string = elimina_id(questions_string)
+    question = build_question(id_question)
+    if question[0] == 'radioQuestion.html':
+        return render_template(question[0], text_question=question[1], questions_string=questions_string,
+                               options=question[2], correct_answer=question[3],
+                               image_file=question[4], user=user, step=0, group=group, id_question=id_question,
+                               total_number_of_questions=total_number_of_questions, properties=question[5],
+                               make_svg=question[5])
+    elif question[0] == 'textQuestion.html':
+        return render_template(question[0], text_question=question[1], questions_string=questions_string,
+                               correct_answer=question[2], image_file=question[3], user=user, step=0, group=group,
+                               id_question=id_question, total_number_of_questions=total_number_of_questions,
+                               properties=question[4], make_svg=question[5])
+    elif question[0] == 'interactiveQuestion.html':
+        return render_template(question[0], text_question=question[1], questions_string=questions_string,
+                               correct_answer=question[2], image_file=question[3], user=user, step=0, group=group,
+                               id_question=id_question, total_number_of_questions=total_number_of_questions,
+                               properties=question[4], make_svg=question[5], interactive_script=question[6],
+                               get_answer=question[7])
 
 
 # legge un file json e forma la stringa da cui poi verranno generate tutte le domande
@@ -155,13 +188,6 @@ def elimina_id(stringa):
 #  aggiorna la stringa e reindirizza alla prima domanda
 @app.route('/presentation', methods=['POST'])
 def presentation():
-    questions_string = make_string_from_json()
-    i = 0
-    while i < len(config.RANGES_OF_RANDOMIZATION):
-        questions_string = randomize(questions_string, config.RANGES_OF_RANDOMIZATION[i][0],
-                                     config.RANGES_OF_RANDOMIZATION[i][1])
-        i = i + 1
-    total_number_of_questions = config.TEST_LENGTH
     user = request.form['firstName'] + request.form['lastName'] + request.form['userId']
     age = request.form['age']
     gender = request.form['gender']
@@ -169,32 +195,15 @@ def presentation():
     data_e_ora = request.form['dataEora']
     if group != 'null':
         with open('answer.txt', 'a') as text_file:
-            text_file.write('[%s]' % data_e_ora + 'user=%s' % user + ' group=%s' % group + ' step=%d' % 0
+            text_file.write('[%s] ' % data_e_ora + 'user=%s' % user + ' group=%s' % group
                             + ' age=%s' % age + ' gender=%s\n' % gender)
     else:
         with open('answer.txt', 'a') as text_file:
-            text_file.write('[%s]' % data_e_ora + 'user=%s' % user + ' step=%d' % 0
+            text_file.write('[%s] ' % data_e_ora + 'user=%s' % user
                             + ' age=%s' % age + ' gender=%s\n' % gender)
-    id_question = int(questions_string.split('#')[0])
-    questions_string = elimina_id(questions_string)
-    question = build_question(id_question)
-    if question[0] == 'radioQuestion.html':
-        return render_template(question[0], text_question=question[1], questions_string=questions_string,
-                               options=question[2], correct_answer=question[3],
-                               image_file=question[4], user=user, step=0, group=group, id_question=id_question,
-                               total_number_of_questions=total_number_of_questions, properties=question[5],
-                               make_svg=question[5])
-    elif question[0] == 'textQuestion.html':
-        return render_template(question[0], text_question=question[1], questions_string=questions_string,
-                               correct_answer=question[2], image_file=question[3], user=user, step=0, group=group,
-                               id_question=id_question, total_number_of_questions=total_number_of_questions,
-                               properties=question[4], make_svg=question[5])
-    elif question[0] == 'interactiveQuestion.html':
-        return render_template(question[0], text_question=question[1], questions_string=questions_string,
-                               correct_answer=question[2], image_file=question[3], user=user, step=0, group=group,
-                               id_question=id_question, total_number_of_questions=total_number_of_questions,
-                               properties=question[4], make_svg=question[5], interactive_script=question[6],
-                               get_answer=question[7])
+    with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
+        data = json.load(data_file)
+        return render_template('instructionsPage.html', istruzioni=data['instructions'],user=user, group=group)
 
 
 # richiede i dati dalla form della risposta, stampa su file user,step,risposta e tempo

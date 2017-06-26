@@ -23,6 +23,8 @@
     </div>
     <div style="margin-left: 12%; margin-right: 12%;">
         <form method="post" action="{{ url_for('instructions') }}" id="form">
+            <input type="hidden" name="user" id="user" value={{ user }}>
+            <input type="hidden" name="group" id="group" value={{ group }}>
             <input type="button" id="next" onclick="nextText()" class="btn btn-success" value="Next"
                    style="position: absolute; top: 45%; right: 15%">
         </form>

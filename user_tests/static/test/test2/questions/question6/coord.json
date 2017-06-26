@@ -109,13 +109,13 @@
       "y": 21,
       "x": 24,
       "id": "node22",
-       "optionalColor":"yellow"
+        "optionalColor":"orange"
     },
     {
       "y": 0,
       "x": 2,
       "id": "node17",
-      "optionalColor":"yellow"
+      "optionalColor":"orange"
     },
     {
       "y": 14,

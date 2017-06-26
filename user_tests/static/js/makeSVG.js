@@ -1,5 +1,4 @@
 function makeSVG(highlightedNode) {
-
     var question = document.getElementById('question');
     var svgElement;
     if (properties.fileType === "SVG_file") {
@@ -12,6 +11,7 @@ function makeSVG(highlightedNode) {
             svgElement.addEventListener('load', svgScript, false);
     }
     else if (properties.fileType === "coord_file") {
+
         var coord_file = image_file;
         svgElement = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         var svgNS = svgElement.namespaceURI;
@@ -32,6 +32,7 @@ function makeSVG(highlightedNode) {
         svgElement.setAttribute('id', "svg");
         var nodes = coord_file.nodes;
         var edges = coord_file.edges;
+        //viciniInComune(nodes,edges);
         var yMax = yMassima(nodes);
         for (var i = 0; i < nodes.length; i++) {
             nodes[i].y = yMax - nodes[i].y;
@@ -59,6 +60,46 @@ function makeSVG(highlightedNode) {
     }
     question.appendChild(svgElement);
 }
+
+function viciniInComune(nodes,edges) {
+    var graph = vicini(nodes,edges);
+    var viciniComuni = [];
+    for (var i=0; i<graph.length; i++){
+        for(var j=0; j<graph.length; j++){
+            if (i!==j) {
+                var nodi = graph[i].split(",");
+                for (var y = 0; y < nodi.length; y++) {
+                    if (contains2(graph[j].split(","),nodi[y])    ) {
+                        viciniComuni[i + "," + j] += nodi[y];
+                    }
+                }
+            }
+        }
+    }
+    for (i in viciniComuni)
+        if (viciniComuni[i] !== "undefined")
+            console.log(i+"="+viciniComuni[i].substring(9));
+}
+
+function contains2(list,elem) {
+    for (var i =0; i<list.length; i++){
+        if (list[i] === elem)
+            return true;
+    }
+    return false;
+}
+function vicini(nodes,edges) {
+    var graph = [];
+    for (var i=0; i<nodes.length;i++){
+        graph[i] = "";
+    }
+    for (i=0; i<edges.length;i++){
+        graph[edges[i].from.substring(4)] = graph[edges[i].from.substring(4)] += edges[i].to +",";
+    }
+    return graph;
+}
+
+
 
 var beginX;
 var beginY;

@@ -12,9 +12,48 @@ function verifyAnswer(highlightedNode, answer, verify) {
             || (verifyPath(lastNode, lastNode, copyListAnswer) && containsNode(listAnswer, firstNode))
     }
     if (verify === "neighbour") {
-        return false;
-        //return verifyNeighbour();
+        return verifyNeighbour(firstNode,lastNode,copyListAnswer);
     }
+}
+
+function verifyNeighbour(firstNode,secondNode,answer) {
+    var firstIndex = firstNode.substring(4);
+    var secondIndex = secondNode.substring(4);
+    var graph = vicini(image_file.nodes, image_file.edges);
+    var firstVicini = graph[firstIndex].split(",");
+    var secondVicini = graph[secondIndex].split(",");
+    firstVicini.pop();
+    secondVicini.pop();
+    var boolean = true;
+    var viciniInComune = [];
+    for (var i=0; i<firstVicini.length; i++){
+        for (var j=0; j<secondVicini.length; j++){
+            if (firstVicini[i] === secondVicini[j]){
+                viciniInComune.push(firstVicini[i]);
+            }
+        }
+    }
+    for (i = 0; i<answer.length; i++){
+        for (j=0; j<viciniInComune.length; j++){
+            if (answer[i] === viciniInComune[j]){
+                answer.splice(i,1);
+                viciniInComune.splice(j,1);
+                i = -1;
+            }
+        }
+    }
+    return answer.length === 0 && viciniInComune.length === 0;
+}
+
+function vicini(nodes,edges) {
+    var graph = [];
+    for (var i=0; i<nodes.length;i++){
+        graph[i] = "";
+    }
+    for (i=0; i<edges.length;i++){
+        graph[edges[i].from.substring(4)] = graph[edges[i].from.substring(4)] += edges[i].to +",";
+    }
+    return graph;
 }
 
 function verifyPath(first, last, list) {

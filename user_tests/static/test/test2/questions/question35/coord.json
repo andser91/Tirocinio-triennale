@@ -319,7 +319,7 @@
       "y": 46,
       "x": 40,
       "id": "node28",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 47,
@@ -445,7 +445,7 @@
       "y": 37,
       "x": 38,
       "id": "node52",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 12,

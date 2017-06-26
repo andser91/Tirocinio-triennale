@@ -224,7 +224,7 @@
       "y": 36,
       "x": 30,
       "id": "node44",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 30,
@@ -275,7 +275,7 @@
       "y": 56,
       "x": 76,
       "id": "node54",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 90,

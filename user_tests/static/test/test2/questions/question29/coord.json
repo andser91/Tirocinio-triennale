@@ -19,13 +19,13 @@
       "y": 6,
       "x": 6,
       "id": "node4",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 14,
       "x": 14,
       "id": "node13",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 17,

@@ -14,7 +14,7 @@
       "y": 28,
       "x": 16,
       "id": "node1",
-      "optionalColor":"yellow"
+      "optionalColor":"orange"
     },
     {
       "y": 29,
@@ -40,7 +40,7 @@
       "y": 20,
       "x": 7,
       "id": "node8",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 19,

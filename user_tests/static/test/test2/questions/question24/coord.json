@@ -89,7 +89,7 @@
       "y": 59,
       "x": 70,
       "id": "node17",
-      "optionalColor":"yellow"
+      "optionalColor":"orange"
     },
     {
       "y": 64,
@@ -255,7 +255,7 @@
       "y": 57,
       "x": 53,
       "id": "node50",
-      "optionalColor":"yellow"
+       "optionalColor":"orange"
     },
     {
       "y": 86,

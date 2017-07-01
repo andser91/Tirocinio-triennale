@@ -1,3 +1,13 @@
 {
-  "fileType": "SVG_file"
+  "fileType": "coord_file",
+  "editable": ["edges"],
+  "graphType": "directed",
+  "drawingStyle": "matrix",
+  "nodeDimension": "5",
+  "defaultNodeColor": "#f4f4f4",
+  "defaultLabelColor": "black",
+  "selectedNodeColor": "red",
+  "defaultEdgeColor": "blue",
+  "selectedEdgeColor": "red",
+  "verify":"path"
 }

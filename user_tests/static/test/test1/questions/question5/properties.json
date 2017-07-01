@@ -1,9 +1,13 @@
 {
   "fileType": "coord_file",
+  "editable": ["edges"],
   "graphType": "directed",
   "drawingStyle": "matrix",
   "nodeDimension": "5",
-  "defaultNodeColor": "#F4F4F4",
+  "defaultNodeColor": "#f4f4f4",
   "defaultLabelColor": "black",
-  "defaultEdgeColor": "blue"
+  "selectedNodeColor": "red",
+  "defaultEdgeColor": "blue",
+  "selectedEdgeColor": "red",
+  "verify":"cicle"
 }

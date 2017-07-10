@@ -2,13 +2,12 @@
   "fileType": "coord_file",
   "editable": ["edges"],
   "graphType": "directed",
-  "drawingStyle": "L-drawing",
-  "nodeDimension": 5,
-  "defaultNodeColor": "#66FF66",
+  "drawingStyle": "matrix",
+  "nodeDimension": "5",
+  "defaultNodeColor": "#f4f4f4",
   "defaultLabelColor": "black",
   "selectedNodeColor": "red",
-  "defaultEdgeColor": "black",
+  "defaultEdgeColor": "blue",
   "selectedEdgeColor": "red",
-  "coordinatesMultiplier": 15,
 "verify":"cicle"
 }

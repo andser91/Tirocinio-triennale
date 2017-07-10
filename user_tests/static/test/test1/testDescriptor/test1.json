@@ -14,13 +14,14 @@
       "template": "interactiveQuestion.html",
       "question_folder": "question1"
     },
-    {
+ {
       "id": 2,
       "question": "Select the edges of a directed cycle including the two highlighted vertices, if it exists",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question2"
     },
+
     {
       "id": 3,
       "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
@@ -35,13 +36,14 @@
       "template": "interactiveQuestion.html",
       "question_folder": "question4"
     },
-    {
+ {
       "id": 5,
       "question": "Select the edges of a directed cycle including the two highlighted vertices, if it exists",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question5"
     },
+
     {
       "id": 6,
       "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
@@ -56,13 +58,14 @@
       "template": "interactiveQuestion.html",
       "question_folder": "question7"
     },
-    {
+ {
       "id": 8,
       "question": "Select the edges of a directed cycle including the two highlighted vertices, if it exists",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question8"
     },
+
     {
       "id": 9,
       "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
@@ -105,6 +108,7 @@
       "template": "interactiveQuestion.html",
       "question_folder": "question14"
     },
+    
     {
       "id": 15,
       "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
@@ -147,6 +151,7 @@
       "template": "interactiveQuestion.html",
       "question_folder": "question20"
     },
+  
     {
       "id": 21,
       "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
@@ -188,69 +193,6 @@
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question26"
-    },
-    {
-      "id": 27,
-      "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question27"
-    },
-    {
-      "id": 28,
-      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question28"
-    },
-    {
-      "id": 29,
-      "question": "Select the edges of a directed cycle including the two highlighted vertices, if it exists",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question29"
-    },
-    {
-      "id": 30,
-      "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question30"
-    },
-    {
-      "id": 31,
-      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question31"
-    },
-    {
-      "id": 32,
-      "question": "Select the edges of a directed cycle including the two highlighted vertices, if it exists",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question32"
-    },
-    {
-      "id": 33,
-      "question": "Select the edges of a directed path between the two highlighted vertices, if it exists",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question33"
-    },
-    {
-      "id": 34,
-      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question34"
-    },
-    {
-      "id": 35,
-      "question": "Select the edges of a directed cycle including the two highlighted vertices, if it exists",
-      "correctAnswer": "",
-      "template": "interactiveQuestion.html",
-      "question_folder": "question35"
     }
   ],
   "groups": [],

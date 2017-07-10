@@ -107,17 +107,13 @@ def make_string_from_json():
 
 def randomize(string, start, end):
     ids_list = string.split('#p#')
-    print ids_list[start:end + 1]
     i = start
     while i < end:
         j = random.randint(i, end)
         temp = ids_list[i]
         ids_list[i] = ids_list[j]
         ids_list[j] = temp
-        print 'i=' + str(i) + '    j=' + str(j)
-        print ids_list[start:end + 1]
         i = i + 1
-    print 'END RANDOMIZATION'
     return '#p#'.join(ids_list)
 
 

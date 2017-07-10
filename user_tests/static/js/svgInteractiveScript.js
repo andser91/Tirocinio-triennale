@@ -19,9 +19,13 @@ function svgScript() {
 function editableScriptMatrix(svg, editable) {
     var labels = svg.getElementsByTagName('text');
     var nodesEedge = svg.getElementsByTagName('rect');
+    for (var i = 0; i < nodesEedge.length; i++) {
+        nodesEedge[i].addEventListener('mouseover', zoomInMatrixEdge, false);
+        nodesEedge[i].addEventListener('mouseout', zoomOutMatrixEdge, false);
+    }
     var nodes = [];
     var edges = [];
-    for (var i = 0; i < nodesEedge.length; i++) {
+    for (i = 0; i < nodesEedge.length; i++) {
         if (confrontaColori(nodesEedge[i].getAttribute('fill'), properties.defaultNodeColor) && nodesEedge[i].getAttribute('id'))
             nodes.push(nodesEedge[i]);
         if (confrontaColori(nodesEedge[i].getAttribute('fill'), properties.defaultEdgeColor))
@@ -37,8 +41,6 @@ function editableEdgeMatrix(svg, edges) {
     for (var i = 0; i < edges.length; i++) {
         if (confrontaColori(edges[i].getAttribute('fill'), properties.defaultEdgeColor)) {
             edges[i].addEventListener('mousedown', editMatrixEdge, false);
-            edges[i].addEventListener('mouseover', zoomInMatrixEdge, false);
-            edges[i].addEventListener('mouseout', zoomOutMatrixEdge, false);
         }
     }
 }
@@ -154,30 +156,20 @@ function existSelectedEdgeSameXGreaterY(edges, edge) {
 
 
 function zoomInMatrixEdge() {
-    if (confrontaColori(this.getAttribute('fill'), properties.defaultEdgeColor) ||
-        confrontaColori(this.getAttribute('fill'), properties.selectedEdgeColor)) {
-        this.setAttribute('stroke', 'red');
-        if (properties.graphType === "undirected") {
-            var svg = document.getElementById('svg');
-            var nodeIdarray = this.getAttribute('id').split("-");
-            var otherEdgeId = nodeIdarray[1] + "-" + nodeIdarray[0];
-            var otherEdge = svg.getElementById(otherEdgeId);
-            otherEdge.setAttribute('stroke', 'red');
+    var nodesEedge = document.getElementById('svg').getElementsByTagName('rect');
+    for (var i = 0; i < nodesEedge.length; i++) {
+        if (nodesEedge[i].getAttribute('x') === this.getAttribute('x') ||
+            nodesEedge[i].getAttribute('y') === this.getAttribute('y')) {
+            nodesEedge[i].setAttribute('stroke', '#DBDBDB');
         }
     }
+    this.setAttribute('stroke','red');
 }
 
 function zoomOutMatrixEdge() {
-    if (confrontaColori(this.getAttribute('fill'), properties.defaultEdgeColor) ||
-        confrontaColori(this.getAttribute('fill'), properties.selectedEdgeColor)) {
-        this.setAttribute('stroke', 'white');
-        if (properties.graphType === "undirected") {
-            var svg = document.getElementById('svg');
-            var nodeIdarray = this.getAttribute('id').split("-");
-            var otherEdgeId = nodeIdarray[1] + "-" + nodeIdarray[0];
-            var otherEdge = svg.getElementById(otherEdgeId);
-            otherEdge.setAttribute('stroke', 'white');
-        }
+    var nodesEedge = document.getElementById('svg').getElementsByTagName('rect');
+    for (var i = 0; i < nodesEedge.length; i++) {
+        nodesEedge[i].setAttribute('stroke', 'white');
     }
 }
 

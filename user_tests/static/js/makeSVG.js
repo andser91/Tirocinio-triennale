@@ -184,7 +184,8 @@ function svgZoom(e) {
     if (e.wheelDelta) { /* IE/Opera. */
         delta = e.wheelDelta / 120;
 
-    } else if (e.type === "DOMMouseScroll") {
+    }
+    if (e.type === "DOMMouseScroll") {
         /** Mozilla case. */
         delta = -e.detail / 3;
     }

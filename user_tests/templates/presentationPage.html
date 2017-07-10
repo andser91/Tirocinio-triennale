@@ -102,16 +102,16 @@
                 <br>
                 <input type="hidden" name="userId" id="userId">
                 <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%"
-                       id="firstName"
+                       id="firstName" required
                        name="firstName"
                        placeholder="first name.." maxlength="20"><br>
                 <input type="hidden" name="dataEora" id="dataEora">
                 <input type="text" class="form-control" onkeypress="validateText(event)" style="width: 25%"
-                       name="lastName"
+                       name="lastName" required
                        id='lastName' placeholder="last name.." maxlength="20"><br>
                 <input type="text" class="form-control" onkeypress="validateAge(event)" style="width: 10%" name='age'
                        id="age"
-                       placeholder="age.." maxlength="2"><br>
+                       placeholder="age.." maxlength="2" required><br>
                 <select title="gender" name="gender" style="width: 20%" class="form-control" required>
                     <option hidden disabled selected value> -- gender --</option>
                     <option name="gender" id="male" value="Male">Male</option>
@@ -123,6 +123,7 @@
                 <input align='left' type='submit' id='submitButton' value='Start' formmethod="post" onclick="setId()"
                        formaction="{{ url_for('presentation') }}" style='margin-top:10px' class="btn btn-success"/>
             </fieldset>
+            <p style="color: red; margin-top: 2%">*Your personal details will only be used for statistical purposes and in aggregate form </p>
         </form>
     </div>
 {% endblock %}

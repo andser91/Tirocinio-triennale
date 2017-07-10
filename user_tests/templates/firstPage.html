@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <div style="margin-right: 10%; margin-left: 10%;">
+        <div style='text-align:center' onload="caricaTesto()">
+            <h2 style="margin-bottom: 5%; text-align: center">
+                Please read the following instructions before you begin the test:
+            </h2>
+            <p style="text-align: center;margin-left: 15%; margin-right: 15%; font-size: 16pt" id="instr">Please use a desktop or laptop computer, not a tablet or phone, with
+                Google Chrome Browser. Use the pointing device you are most comfortable with (for example, a mouse or touchpad).</p>
+        </div>
+    </div>
+     <div style="margin-left: 12%; margin-right: 12%;">
+        <form method="post" action="{{ url_for('first_page') }}" id="form">
+            <input type="submit" id="next"  class="btn btn-success" value="Next">
+        </form>
+    </div>
+{% endblock %}

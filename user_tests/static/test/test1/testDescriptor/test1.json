@@ -9,7 +9,7 @@
     },
     {
       "id": 1,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question1"
@@ -30,7 +30,7 @@
     },
     {
       "id": 4,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question4"
@@ -51,7 +51,7 @@
     },
     {
       "id": 7,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question7"
@@ -72,7 +72,7 @@
     },
     {
       "id": 10,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question10"
@@ -93,7 +93,7 @@
     },
     {
       "id": 13,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question13"
@@ -114,7 +114,7 @@
     },
     {
       "id": 16,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question16"
@@ -135,7 +135,7 @@
     },
     {
       "id": 19,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question19"
@@ -156,7 +156,7 @@
     },
     {
       "id": 22,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question22"
@@ -177,7 +177,7 @@
     },
     {
       "id": 25,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question25"
@@ -198,7 +198,7 @@
     },
     {
       "id": 28,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question28"
@@ -219,7 +219,7 @@
     },
     {
       "id": 31,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question31"
@@ -240,7 +240,7 @@
     },
     {
       "id": 34,
-      "question": "Select the common successors (immediate neighbors) of the two highlighted vertices",
+      "question": "Select the common successors (immediate neighbors) of both the two highlighted vertices",
       "correctAnswer": "",
       "template": "interactiveQuestion.html",
       "question_folder": "question34"
@@ -255,7 +255,6 @@
   ],
   "groups": [],
   "instructions": [
-    "Please use a desktop or laptop computer, not a tablet or phone, with Google Chrome Browser. Use the pointing device you are most comfortable with (for example, a mouse or touchpad).",
     "Please do not press the back button of the browser and do not refresh the page during the test.",
     "After each question there will be an intermediate page where time will not be measured. If you are forced to stop for some reason, please, take advantage of these moments!",
     "In all questions, you can zoom the image with the mouse wheel and move it by clicking and dragging it."

@@ -7,6 +7,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('firstPage.html')
+
+
+@app.route('/firstPage', methods=['POST'])
+def first_page():
     with app.open_resource(config.TEST_DESCRIPTOR) as data_file:
         data = json.load(data_file)
         return render_template('presentationPage.html', group=data['groups'])

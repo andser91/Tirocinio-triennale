@@ -9,5 +9,6 @@
   "selectedNodeColor": "red",
   "defaultEdgeColor": "black",
   "selectedEdgeColor": "red",
-  "coordinatesMultiplier": 1
+  "coordinatesMultiplier": 1,
+  "verify":"path"
 }

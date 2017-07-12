@@ -54,7 +54,12 @@
                         }
                     }
                 }
-                return answer === "node2-node4node4-node6" || answer === "node4-node6node2-node4";
+                console.log(answer);
+                return answer === "node2-node4node4-node6" || answer === "node4-node6node2-node4" ||
+                        answer === "node2-node3node3-node4node4-node6" || answer === "node4-node6node3-node4node2-node3" ||
+                        answer === "node2-node3node4-node6node3-node40" || answer === "node4-node6node2-node3node3-node4" ||
+                        answer === "node3-node4node4-node6node2-node3" || answer === "node3-node4node2-node3node4-node6" ||
+                        answer === "node2-node3node3-node1node1-node4node4-node6" || answer === "node4-node6node3-node1node1-node4node2-node3";
             }
         }
 

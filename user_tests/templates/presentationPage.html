@@ -5,7 +5,7 @@
         //inizializza un numero casuale da affiancare all'user
         function setId() {
             var d = new Date();
-            var month = d.getMonth();
+            var month = d.getMonth() + 1;
             if (month < 10)
                 month = '0' + month;
             var day = d.getDate();
@@ -83,7 +83,7 @@
             var theEvent = evt || window.event;
             var key = theEvent.keyCode || theEvent.which;
             key = String.fromCharCode(key);
-            var regex = /[a-z]|[A-Z]|à|ì|è|ò|ù/;
+            var regex = /[a-z]|[A-Z]|à|ì|è|ò|ù|[ ]/;
             if (!regex.test(key)) {
                 theEvent.returnValue = false;
                 if (theEvent.preventDefault) theEvent.preventDefault();

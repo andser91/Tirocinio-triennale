@@ -67,7 +67,6 @@ function verifyPath(first, last, list) {
         orderedList.push(firstEdge);
         var i = 0;
         while (i<list.length && getToNodeString(orderedList[(orderedList.length - 1)]) !== last && list.length !== 0){
-
             if (getToNodeString(orderedList[(orderedList.length - 1)]) === getFromNodeString(list[i])) {
                 orderedList.push(list[i]);
                 list.splice(i,1);

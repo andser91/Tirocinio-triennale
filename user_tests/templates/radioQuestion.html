@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block header %}
     <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script type="application/javascript" src="{{ make_svg }}"></script>
+    <script type="application/javascript" src="{{ url_for('static', filename='js/makeSVG.js') }}"></script>
     <script>
         var properties = {{ properties|tojson }};
         var image_file = {{ image_file|tojson }};
@@ -27,19 +27,20 @@
                 father.insertBefore(aCapo, submit);
                 i = i + 1;
             }
-            makeSVG(image_file);
+            makeSVG(highlightedNode);
         });
         //memorizza il tempo di inizio della domanda
         function getBeginTime() {
             var d = new Date();
             return d.getTime();
         }
+        var highlightedNode = [];
         var beginTime = getBeginTime();
         //calcola il tempo impiegato per rispondere e lo assegna al campo hidden 'time'
         //aggiorna il contatore step
         function sendTime() {
             var d = new Date();
-            var month = d.getMonth();
+            var month = d.getMonth() + 1;
             if (month < 10)
                 month = '0' + month;
             var day = d.getDate();
@@ -66,9 +67,7 @@
 {% endblock %}
 
 {% block body %}
-    <div id="question" class="col-sm-7" ">
-
-    </div>
+    <div id="question" class="col-sm-7"> </div>
 
 
 

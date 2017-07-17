@@ -23,7 +23,6 @@ function makeSVG(highlightedNode) {
         function nonSelectable() {
             return false;
         }
-
         var width = window.screen.width * 50 / 100;
         var height = window.screen.height * 85 / 100;
         svgElement.setAttribute("width", width);
@@ -587,7 +586,7 @@ function makeOOEdge(edges, nodes, svgNS, svgElement) {
         }
     }
     var edge, arrow;
-    var firstPoint, firstLine, firstCurvePoint, secondCurvePoint, secondLine, dPath, arrowPoints;
+    var firstPoint, firstLine, secondLine, dPath, arrowPoints;
     for (i = 0; i < upEdges.length; i++) {
         fromNode = getFromNode(upEdges[i], nodes);
         toNode = getToNode(upEdges[i], nodes);
@@ -684,39 +683,40 @@ function makeOOEdge(edges, nodes, svgNS, svgElement) {
 
 function AggiungiPuntoUp(svg, svgNS, edges, edge, nodes) {
     for (var i = 0; i < edges.length; i++) {
-        var fromNodeAggiunto = getFromNode(edges[i], nodes);
-        var fromNodeDaAggiungere = getFromNode(edge, nodes);
-        var toNodeAggiunto = getToNode(edges[i], nodes);
-        var toNodeDaAggiungere = getToNode(edge, nodes);
-        if (fromNodeAggiunto === fromNodeDaAggiungere) {
-            var blackPoint = document.createElementNS(svgNS, "ellipse");
+        var fromNodeAdded = getFromNode(edges[i], nodes);
+        var fromNodeToAdd = getFromNode(edge, nodes);
+        var toNodeAdded = getToNode(edges[i], nodes);
+        var toNodeToAdd = getToNode(edge, nodes);
+        var blackPoint;
+        if (fromNodeAdded === fromNodeToAdd) {
+            blackPoint = document.createElementNS(svgNS, "ellipse");
             blackPoint.setAttribute('fill', properties.defaultEdgeColor);
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
             blackPoint.setAttribute('rx', '2');
             blackPoint.setAttribute('ry', '2');
-            if (parseInt(toNodeAggiunto.y) > parseInt(toNodeDaAggiungere.y)) {
-                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
-                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
+            if (parseInt(toNodeAdded.y) > parseInt(toNodeToAdd.y)) {
+                blackPoint.setAttribute('cx', parseInt(fromNodeAdded.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAdded.y) * properties.coordinatesMultiplier);
             }
             else {
-                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
-                blackPoint.setAttribute('cy', parseInt(toNodeDaAggiungere.y) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cx', parseInt(fromNodeAdded.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeToAdd.y) * properties.coordinatesMultiplier);
             }
             svg.appendChild(blackPoint);
         }
-        if (toNodeAggiunto === toNodeDaAggiungere) {
-            var blackPoint = document.createElementNS(svgNS, "ellipse");
+        if (toNodeAdded === toNodeToAdd) {
+            blackPoint = document.createElementNS(svgNS, "ellipse");
             blackPoint.setAttribute('fill', properties.defaultEdgeColor);
             blackPoint.setAttribute('stroke', properties.defaultEdgeColor);
             blackPoint.setAttribute('rx', '2');
             blackPoint.setAttribute('ry', '2');
-            if (parseInt(fromNodeAggiunto.x) > parseInt(fromNodeDaAggiungere.x)) {
-                blackPoint.setAttribute('cx', parseInt(fromNodeAggiunto.x) * properties.coordinatesMultiplier);
-                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
+            if (parseInt(fromNodeAdded.x) > parseInt(fromNodeToAdd.x)) {
+                blackPoint.setAttribute('cx', parseInt(fromNodeAdded.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAdded.y) * properties.coordinatesMultiplier);
             }
             else {
-                blackPoint.setAttribute('cx', parseInt(fromNodeDaAggiungere.x) * properties.coordinatesMultiplier);
-                blackPoint.setAttribute('cy', parseInt(toNodeAggiunto.y) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cx', parseInt(fromNodeToAdd.x) * properties.coordinatesMultiplier);
+                blackPoint.setAttribute('cy', parseInt(toNodeAdded.y) * properties.coordinatesMultiplier);
             }
             svg.appendChild(blackPoint);
         }

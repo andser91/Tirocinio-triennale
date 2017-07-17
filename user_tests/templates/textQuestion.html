@@ -10,12 +10,12 @@
             return t;
         }
         var beginTime = getBeginTime();
-
+        var highlightedNode = [];
         //calcola il tempo impiegato per rispondere e lo assegna al campo hidden 'time'
         //aggiorna il contatore step
         function sendTime() {
             var d = new Date();
-            var month = d.getMonth();
+            var month = d.getMonth() + 1;
             if (month < 10)
                 month = '0' + month;
             var day = d.getDate();
@@ -79,7 +79,7 @@
         var properties = {{ properties|tojson }};
         var image_file = {{ image_file|tojson }};
         $(window).load(function () {
-            makeSVG(image_file);
+            makeSVG(highlightedNode);
         });
     </script>
 {% endblock %}
